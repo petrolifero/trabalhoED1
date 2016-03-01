@@ -1,10 +1,11 @@
 #include <stdlib.h>
 #include <include/lista/erros.h>
+#include <errno.h>
 
-typedef struct
+typedef struct lista
 {
     int info;
-    struct Lista* next;
+    struct lista* next;
 }Lista;
 
 inline Lista* empty ()

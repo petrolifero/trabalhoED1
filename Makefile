@@ -1,7 +1,10 @@
-CFLAGS="-Ofast -Wall -Werror -Wextra -std=c11 -fomit-frame-pointer -march=native"
+CURRENT=`pwd`
+CFLAGS=-Ofast -Wall -Werror -Wextra -std=c11 -fomit-frame-pointer -march=native -I$(CURRENT)
+
 
 build: support grafo.o
-	gcc grafo.o util/Lista.o -o grafo $(CFLAGS)
+	gcc main.c util/Lista.o grafo.o -o main $(CFLAGS)
 
 support:
-	make  -C util/
+	CFLAGS="$(CFLAGS)" make  -C util/
+	gcc grafo.c -c -o grafo.o $(CFLAGS)
