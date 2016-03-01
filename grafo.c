@@ -8,10 +8,10 @@ typedef struct
     unsigned int **matrizAdjacencia;
 }Grafo;
 
-Grafo* initGrafo (int numeroVertices)
+Grafo* initGrafo (unsigned int numeroVertices)
 {
         Grafo* grafoTemporario;
-        int controlaFor;
+        unsigned int controlaFor;
         grafoTemporario=(Grafo*)calloc(numeroVertices, sizeof(Grafo));
         if(grafoTemporario==NULL)
         {
@@ -31,7 +31,7 @@ Grafo* initGrafo (int numeroVertices)
                 grafoTemporario->matrizAdjacencia[controlaFor]=(unsigned int*)calloc(numeroVertices, sizeof(unsigned int));
                 if(grafoTemporario->matrizAdjacencia[controlaFor]==NULL)
                 {
-                        int i;
+                        unsigned int i;
                         for(i=0; i<controlaFor; i++)
                         {
                                 free(grafoTemporario->matrizAdjacencia[i]);
@@ -53,12 +53,13 @@ Grafo* addAresta (Grafo* grafo, unsigned int verticeInicial, unsigned int vertic
                 return grafo;
         grafo->matrizAdjacencia[verticeInicial][verticeFinal]=1;
         grafo->matrizAdjacencia[verticeInicial][verticeFinal]=1;
+        grafo->numeroArestas++;
         return grafo;
 }
 
 Grafo* addVertice (Grafo* grafo)
 {
-    int controlaFor;
+    unsigned int controlaFor;
     unsigned int** novaMatrizAdjacencia;
     if (grafo==NULL)
         return NULL;
@@ -70,7 +71,35 @@ Grafo* addVertice (Grafo* grafo)
     }
     for(controlaFor=0; controlaFor<grafo->numeroVertices+1; controlaFor++)
     {
-        novaMatrizAdjacencia[controlaFor]=
+        novaMatrizAdjacencia[controlaFor]=(unsigned int*)calloc(grafo->numeroVertices+1, sizeof(unsigned int));
+        if (novaMatrizAdjacencia[controlaFor]==NULL)
+        {
+            unsigned int i;
+            for (i=0; i<controlaFor; i++)
+            {
+                free(novaMatrizAdjacencia[i]);
+            }
+            free(novaMatrizAdjacencia);
+            errno=ENOMEM;
+            return grafo;
+        }
     }
-    for(controlaFor=0; controlaFor<
+    for(controlaFor=0; controlaFor<grafo->numeroVertices; controlaFor++)
+    {
+        unsigned int i;
+        for(i=0; i<grafo->numeroVertices; i++)
+        {
+            novaMatrizAdjacencia[controlaFor][i]=grafo->matrizAdjacencia[controlaFor][i];
+        }
+    }
+    for(controlaFor=0; controlaFor<grafo->numeroVertices ; controlaFor++)
+    {
+        free(grafo->matrizAdjacencia[controlaFor]);
+    }
+    free(grafo->matrizAdjacencia);
+    grafo->numeroVertices++;
+    grafo->matrizAdjacencia=novaMatrizAdjacencia;
+    return grafo;
 }
+
+
