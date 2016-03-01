@@ -8,3 +8,8 @@ build: support grafo.o
 support:
 	CFLAGS="$(CFLAGS)" make  -C util/
 	gcc grafo.c -c -o grafo.o $(CFLAGS)
+
+clean:
+	rm -rf *.o
+	rm main
+	make clean -C util/
