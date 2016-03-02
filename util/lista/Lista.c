@@ -8,12 +8,12 @@ typedef struct lista
     struct lista* next;
 }Lista;
 
-inline Lista* empty ()
+Lista* empty (void)
 {
     return NULL;
 }
 
-inline int isEmpty (Lista* l)
+int isEmpty (Lista* l)
 {
     return l==NULL;
 }

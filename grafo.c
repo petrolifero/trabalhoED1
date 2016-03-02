@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <errno.h>
+#include <stdio.h>
+#include "include/lista/lista.h"
 
 typedef struct
 {
@@ -52,7 +54,7 @@ Grafo* addAresta (Grafo* grafo, unsigned int verticeInicial, unsigned int vertic
         if(verticeInicial>=grafo->numeroVertices || verticeFinal>=grafo->numeroVertices)
                 return grafo;
         grafo->matrizAdjacencia[verticeInicial][verticeFinal]=1;
-        grafo->matrizAdjacencia[verticeInicial][verticeFinal]=1;
+        grafo->matrizAdjacencia[verticeFinal][verticeInicial]=1;
         grafo->numeroArestas++;
         return grafo;
 }
@@ -102,4 +104,48 @@ Grafo* addVertice (Grafo* grafo)
     return grafo;
 }
 
+void liberaGrafo(Grafo* g)
+{
+	if (g)
+	{
+		unsigned int controlaFor;
+		for(controlaFor=0; controlaFor<g->numeroVertices; controlaFor++)
+		{
+			free(g->matrizAdjacencia[controlaFor]);
+		}
+		free(g->matrizAdjacencia);
+		free(g);
+	}
+}
 
+void imprimeGrafo (Grafo* g)
+{
+	if (g!=NULL)
+	{
+		unsigned int controlaFor;
+		for(controlaFor=0; controlaFor<g->numeroVertices; controlaFor++)
+		{
+			unsigned int indiceVizinhos;
+			printf("%d: ", controlaFor);
+			for(indiceVizinhos=0; indiceVizinhos<g->numeroVertices; indiceVizinhos++)
+			{
+				if(g->matrizAdjacencia[controlaFor][indiceVizinhos])
+				{
+					printf("%d ", indiceVizinhos);
+				}
+			}
+			putchar('\n');
+		}
+	}
+}
+
+int* dfs (Grafo* g)
+{
+	int *visitados;
+	Pilha* pilha=pilhaVazia();
+	if (g==NULL)
+		return NULL;
+	visitados=(int*)calloc(g->numeroVertices, sizeof(int));
+	return visitados;
+
+}
