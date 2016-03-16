@@ -1,62 +1,75 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <stdio.h>
-#include "include/lista/lista.h"
+#include <time.h>
+#include "lista/lista.h"
+
+typedef struct
+{
+		int nome;
+		float id;
+}Informacoes;
+
+typedef struct
+{
+		Informacoes dado;
+		Lista* vizinhos;
+}Vertice;
 
 typedef struct
 {
     unsigned int numeroVertices;
     unsigned int numeroArestas;
-    unsigned int **matrizAdjacencia;
+	Lista* vertices;
 }Grafo;
 
 Grafo* initGrafo (unsigned int numeroVertices)
 {
-        Grafo* grafoTemporario;
-        unsigned int controlaFor;
-        grafoTemporario=(Grafo*)calloc(numeroVertices, sizeof(Grafo));
-        if(grafoTemporario==NULL)
-        {
-                errno=ENOMEM;
-                return NULL;
-        }
-        grafoTemporario->numeroVertices=numeroVertices;
-        grafoTemporario->matrizAdjacencia=(unsigned int**)calloc(numeroVertices, sizeof(unsigned int*));
-        if (grafoTemporario->matrizAdjacencia==NULL)
-        {
-                free(grafoTemporario);
-                errno=ENOMEM;
-                return NULL;
-        }
-        for(controlaFor=0; controlaFor<numeroVertices; controlaFor++)
-        {
-                grafoTemporario->matrizAdjacencia[controlaFor]=(unsigned int*)calloc(numeroVertices, sizeof(unsigned int));
-                if(grafoTemporario->matrizAdjacencia[controlaFor]==NULL)
-                {
-                        unsigned int i;
-                        for(i=0; i<controlaFor; i++)
-                        {
-                                free(grafoTemporario->matrizAdjacencia[i]);
-                        }
-                        free(grafoTemporario->matrizAdjacencia);
-                        free(grafoTemporario);
-                        errno=ENOMEM;
-                        return NULL;
-                }
-        }
-        return grafoTemporario;
+	Grafo* tmp;
+	int i;
+	srand(time(NULL));
+	tmp=(Grafo*)calloc(1, sizeof(Grafo));
+	if(tmp==NULL)
+	{
+			errno=ENOMEM;
+			return NULL;
+	}
+	tmp->numeroVertices=numeroVertices;
+	tmp->numeroArestas=0;
+	tmp->vertices=listaInit(liberaVertice);
+	for(i=numeroVertices-1; i>=0; i++)
+	{
+			Vertice *add, *temporario;
+			add=(Vertice*) calloc(1, sizeof(Vertice));
+			if(add==NULL)
+			{
+					listaLibera(tmp->vertices);
+					free(tmp);
+					errno=ENOMEM;
+					return NULL;
+			}
+			add->dado.nome=i;
+			add->dado.id=(rand()%1000)/1000;
+			add->vizinhos=listaInit();
+			temporario=cons((void*)add,tmp->vertices);
+			if(temporario==NULL)
+			{
+				listaLibera(add);
+				listaLibera(tmp->vertices);
+				free(tmp);
+				errno=ENOMEM;
+				return NULL;
+			}
+			tmp->vertices=temporario;
+	}
+	return tmp;
 }
 
 Grafo* addAresta (Grafo* grafo, unsigned int verticeInicial, unsigned int verticeFinal)
 {
-        if (grafo==NULL)
-                return NULL;
-        if(verticeInicial>=grafo->numeroVertices || verticeFinal>=grafo->numeroVertices)
-                return grafo;
-        grafo->matrizAdjacencia[verticeInicial][verticeFinal]=1;
-        grafo->matrizAdjacencia[verticeFinal][verticeInicial]=1;
-        grafo->numeroArestas++;
-        return grafo;
+		Vertice *tmp;
+		grafo->numeroArestas++;
+		for(tmp=grafo->vertices; tmp; tmp=tmp->
 }
 
 Grafo* addVertice (Grafo* grafo)
@@ -139,13 +152,40 @@ void imprimeGrafo (Grafo* g)
 	}
 }
 
-int* dfs (Grafo* g)
+bool* buscaEmProfundidade (Grafo* g, void (*funcao)(void*))
 {
-	int *visitados;
-	Pilha* pilha=pilhaVazia();
-	if (g==NULL)
+	bool *visitados;
+	visitados=(bool*)calloc(g->numeroVertices, sizeof(bool));
+	if(visitados==NULL)
+	{
+		errno=ENOMEM;
 		return NULL;
-	visitados=(int*)calloc(g->numeroVertices, sizeof(int));
+	}
+	buscaEmProfundidadeAux(g,visitados, g->vertices,funcao);
 	return visitados;
+}
 
+static void buscaEmProfundidadeAux (Grafo* grafo, bool* visitados, Vertice* vertice, void (*funcao) (void*))
+{
+	visitado[vertice->informacoes.nome]=true;
+	funcao(vertice);
+	Lista *tmp;
+	for(tmp=vizinhos(grafo,vertice->dado.nome); !estaVazia(tmp); tmp=cdr(tmp))
+	{
+		Vertice* temporario=(Vertice*)car(tmp);
+		if(temporario->dado.nome
+	}
+}
+
+Lista* vizinhos (Grafo* grafo, int nome)
+{
+	Lista *tmp;
+	for (tmp=grafo->vertices; !estaVazia(tmp); tmp=cdr(tmp))
+	{
+		Vertice* i=(Vertice*) car(tmp);
+		if(i->nome==nome)
+		{
+			return i->vizinhos;
+		}
+	}
 }
