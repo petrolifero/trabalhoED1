@@ -7,7 +7,7 @@
 
 typedef struct
 {
-		int nome;
+		unsigned int nome;
 		float id;
 }Informacoes;
 
@@ -24,6 +24,15 @@ typedef struct
 	Lista* vertices;
 }Grafo;
 
+void liberaVertice (void* v)
+{
+	Vertice *vertice=(Vertice*)v;
+	if (v==NULL) return;
+	listaLibera(vertice->vizinhos);
+	free(vertice);
+}
+
+
 //pegaVertice finish
 static Vertice* pegaVertice(Grafo* grafo, int nome)
 {
@@ -39,14 +48,41 @@ static Vertice* pegaVertice(Grafo* grafo, int nome)
 	return NULL;
 }
 
+//addVertice finish
+Grafo* addVertice (Grafo* grafo)
+{
+	Vertice *tmp=(Vertice*)calloc(1, sizeof(Vertice));
+	Lista* tentativaDeCons;
+	if(tmp==NULL)
+	{
+		errno=ENOMEM;
+		return NULL;
+	}
+	tmp->vizinhos=listaInit(free);
+	tmp->dado.nome=grafo->numeroVertices;
+	tmp->dado.id=(rand()%1000)/1000;
+	tentativaDeCons=cons((void*)tmp, grafo->vertices);
+	if(tentativaDeCons==NULL)
+	{
+		listaLibera(tmp->vizinhos);
+		free(tmp);
+		errno=ENOMEM;
+		return NULL;
+	}
+	grafo->numeroVertices++;
+	grafo->vertices=tentativaDeCons;
+	return grafo;
+}
 
+
+//initGrafo finish
 Grafo* initGrafo (unsigned int numeroVertices)
 {
 	Grafo* tmp;
-	int i;
+	unsigned int i;
 	tmp=(Grafo*)calloc(1, sizeof(Grafo));
 	tmp->vertices = listaInit(liberaVertice);
-	for(i=; i<numeroVertices; i++)
+	for(i=0; i<numeroVertices; i++)
 	{
 		tmp=addVertice(tmp);
 	}
@@ -81,31 +117,7 @@ Grafo* addAresta (Grafo* grafo, unsigned int verticeInicial, unsigned int vertic
 }
 
 
-//addVertice finish
-Grafo* addVertice (Grafo* grafo)
-{
-	Vertice *tmp=(Vertice*)calloc(1, sizeof(Vertice));
-	Lista* tentativaDeCons;
-	if(tmp==NULL)
-	{
-		errno=ENOMEM;
-		return NULL;
-	}
-	tmp->vizinhos=listaInit(free);
-	tmp->dado.nome=grafo->numeroVertices;
-	tmp->dado.id=(rand()%1000)/1000;
-	tentativaDeCons=cons((void*)tmp, grafo->vertices);
-	if(tentativaDeCons==NULL)
-	{
-		listaLibera(vizinhos);
-		free(tmp);
-		errno=ENOMEM;
-		return NULL;
-	}
-	grafo->numeroVertices++;
-	grafo->vertices=tentativaDeCons;
-	return grafo;
-}
+
 
 //liberaGrafo finish
 void liberaGrafo(Grafo* g)
@@ -166,7 +178,7 @@ void imprimeGrafo (Grafo* g)
 //estaConexo finish
 bool estaConexo (Grafo* grafo)
 {
-	int i;
+	unsigned int i;
 	bool* visitados=buscaEmProfundidade(grafo,NULL);
 	for(i=0; i<grafo->numeroVertices; i++)
 	{
@@ -181,6 +193,10 @@ bool estaConexo (Grafo* grafo)
 
 Lista* dijsktra (Grafo* grafo, int nomeOrigem, int nomeDestino)
 {
-	
+		
 	return NULL;
+}
+
+bool existeCaminho(Grafo* grafo, int nomeOrigem, int nomeDestino)
+{
 }

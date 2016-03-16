@@ -4,8 +4,9 @@ typedef struct lista Lista;
 
 
 
-Lista* listaInit (void);
-bool isEmpty (Lista* l);
-Lista* cons (int info, Lista* l);
+Lista* listaInit (void (*funcao) (void*));
+bool estaVazia (Lista* l);
+Lista* cons (void* info, Lista* l);
 Lista* cdr (Lista* l);
 void* car (Lista* l);
+void listaLibera(Lista* l);
