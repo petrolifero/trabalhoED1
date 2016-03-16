@@ -37,7 +37,7 @@ Grafo* initGrafo (unsigned int numeroVertices)
 	tmp->numeroVertices=numeroVertices;
 	tmp->numeroArestas=0;
 	tmp->vertices=listaInit(liberaVertice);
-	for(i=numeroVertices-1; i>=0; i++)
+	for(i=0; i<numeroVertices; i++)
 	{
 			Vertice *add, *temporario;
 			add=(Vertice*) calloc(1, sizeof(Vertice));
@@ -152,6 +152,7 @@ void imprimeGrafo (Grafo* g)
 	}
 }
 
+//buscaEmProfundidade finish
 bool* buscaEmProfundidade (Grafo* g, void (*funcao)(void*))
 {
 	bool *visitados;
@@ -161,31 +162,39 @@ bool* buscaEmProfundidade (Grafo* g, void (*funcao)(void*))
 		errno=ENOMEM;
 		return NULL;
 	}
-	buscaEmProfundidadeAux(g,visitados, g->vertices,funcao);
+	buscaEmProfundidadeAux(g,visitados, (Vertice*)car(g->vertices),funcao);
 	return visitados;
 }
 
+//buscaEmProfundidadeAux finish
 static void buscaEmProfundidadeAux (Grafo* grafo, bool* visitados, Vertice* vertice, void (*funcao) (void*))
 {
-	visitado[vertice->informacoes.nome]=true;
-	funcao(vertice);
 	Lista *tmp;
-	for(tmp=vizinhos(grafo,vertice->dado.nome); !estaVazia(tmp); tmp=cdr(tmp))
+	visitados[vertice->informacoes.nome]=true;
+	if(funcao!=NULL)
 	{
-		Vertice* temporario=(Vertice*)car(tmp);
-		if(temporario->dado.nome
+		funcao(vertice);
+	}
+	for(tmp=vertice->vizinhos; !estaVazia(tmp); tmp=cdr(tmp))
+	{
+		int *temporario=(int*)car(tmp);
+		if(!visitados[*temporario])
+		{
+			buscaEmProfundidadeAux(grafo,visitados,pegaVertice(grafo, *temporario), funcao);
+		}
 	}
 }
 
-Lista* vizinhos (Grafo* grafo, int nome)
+//pegaVertice finish
+Vertice* pegaVertice(Grafo* grafo, int nome)
 {
-	Lista *tmp;
-	for (tmp=grafo->vertices; !estaVazia(tmp); tmp=cdr(tmp))
+	Lista* vertices;
+	for(vertices=grafo->vertices; !estaVazia(vertices); vertices=cdr(vertices))
 	{
-		Vertice* i=(Vertice*) car(tmp);
-		if(i->nome==nome)
+		int nomeAtual=((Vertice*)car(vertices))->dado.nome;
+		if(nomeAtual==nome)
 		{
-			return i->vizinhos;
+			return (Vertice*)car(vertices);
 		}
 	}
 }
