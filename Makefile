@@ -1,5 +1,5 @@
-CURRENT=`pwd`
-CFLAGS=-Ofast -Wall -Werror -Wextra -std=c11 -fomit-frame-pointer -march=native -I$(CURRENT)
+CURRENT=$(pwd)
+CFLAGS=-Ofast -Wall -Werror -Wextra -std=c11 -fomit-frame-pointer -march=native -I$(CURRENT)/include
 
 
 build: support grafo.o
