@@ -39,10 +39,22 @@ static Vertice* pegaVertice(Grafo* grafo, int nome)
 	return NULL;
 }
 
+
 Grafo* initGrafo (unsigned int numeroVertices)
 {
+	Grafo* tmp;
+	int i;
+	tmp=(Grafo*)calloc(1, sizeof(Grafo));
+	tmp->vertices = listaInit(liberaVertice);
+	for(i=; i<numeroVertices; i++)
+	{
+		tmp=addVertice(tmp);
+	}
+	return tmp;
 }
 
+
+//addAresta finish
 Grafo* addAresta (Grafo* grafo, unsigned int verticeInicial, unsigned int verticeFinal)
 {
 	Lista* v;
@@ -53,11 +65,19 @@ Grafo* addAresta (Grafo* grafo, unsigned int verticeInicial, unsigned int vertic
 		if(tmp->dado.nome == verticeInicial)
 		{
 			int *i=(int*)calloc(1,sizeof(int));
-			Lista *tentativadeCons;
 			*i=verticeFinal;
-			
+			tmp->vizinhos=cons((void*)i, tmp->vizinhos);
+			contador++;
+		}
+		else if(tmp->dado.nome == verticeFinal)
+		{
+			int *i=(int*)calloc(1,sizeof(int));
+			*i=verticeInicial;
+			tmp->vizinhos=cons((void*)i, tmp->vizinhos);
+			contador++;
 		}
 	}
+	return grafo;
 }
 
 
@@ -101,46 +121,6 @@ static void imprime(void* vertice)
 	printf("%d\n", tmp->dado.nome);
 }
 
-//imprimeGrafo finish
-void imprimeGrafo (Grafo* g)
-{
-	buscaEmProfundidade(g,imprime);
-}
-
-//estaConexo finish
-bool estaConexo (Grafo* grafo)
-{
-	int i;
-	bool* visitados=buscaEmProfundidade(grafo,NULL);
-	for(i=0; i<grafo->numeroVertices; i++)
-	{
-		if(!visitados[i])
-		{
-			return false;
-		}
-	}
-	return true;
-}
-
-
-//buscaEmProfundidade finish
-bool* buscaEmProfundidade (Grafo* g, void (*funcao)(void*))
-{
-	bool *visitados;
-	visitados=(bool*)calloc(g->numeroVertices, sizeof(bool));
-	if(visitados==NULL)
-	{
-		errno=ENOMEM;
-		return NULL;
-	}
-	buscaEmProfundidadeAux(g,visitados, (Vertice*)car(g->vertices),funcao);
-	return visitados;
-}
-
-
-
-
-
 
 
 //buscaEmProfundidadeAux finish
@@ -163,10 +143,44 @@ static void buscaEmProfundidadeAux (Grafo* grafo, bool* visitados, Vertice* vert
 }
 
 
+//buscaEmProfundidade finish
+bool* buscaEmProfundidade (Grafo* g, void (*funcao)(void*))
+{
+	bool *visitados;
+	visitados=(bool*)calloc(g->numeroVertices, sizeof(bool));
+	if(visitados==NULL)
+	{
+		errno=ENOMEM;
+		return NULL;
+	}
+	buscaEmProfundidadeAux(g,visitados, (Vertice*)car(g->vertices),funcao);
+	return visitados;
+}
 
+//imprimeGrafo finish
+void imprimeGrafo (Grafo* g)
+{
+	buscaEmProfundidade(g,imprime);
+}
+
+//estaConexo finish
+bool estaConexo (Grafo* grafo)
+{
+	int i;
+	bool* visitados=buscaEmProfundidade(grafo,NULL);
+	for(i=0; i<grafo->numeroVertices; i++)
+	{
+		if(!visitados[i])
+		{
+			return false;
+		}
+	}
+	return true;
+}
 
 
 Lista* dijsktra (Grafo* grafo, int nomeOrigem, int nomeDestino)
 {
+	
 	return NULL;
 }
