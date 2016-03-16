@@ -197,7 +197,7 @@ Lista* dijsktra (Grafo* grafo, int nomeOrigem, int nomeDestino)
 	return NULL;
 }
 
-//existeCaminho finish
+//existeCaminho FINISH
 bool existeCaminho(Grafo* grafo, int nomeOrigem, int nomeDestino)
 {
 	Lista* tmp=dijsktra(grafo,nomeOrigem,nomeDestino);
