@@ -1,16 +1,16 @@
 echo "Running unit tests:"
 
-for i in tests/*_tests
+for i in testes/*_testes
 do
 	if test -f $i
 	then
-		if $VALGRIND ./$i 2>> tests/tests.log
+		if $VALGRIND ./$i 2>> testes/testes.log
 		then
-			echo $i PASS
+			echo $i PASSOU
 		else
-			echo "ERROR in test $i: here's test/tests.log"
+			echo "ERRO no teste $i: aqui está testes/testes.log"
 			echo "------"
-			tail tests/tests.log
+			tail testes/testes.log
 			exit 1
 		fi
 	fi

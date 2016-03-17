@@ -2,7 +2,7 @@
 CURRENT=$(dir Makefile)
 #CFLAGS=-Ofast -Wall -Werror -Wextra -std=c11 -fomit-frame-pointer -march=native -I$(CURRENT)include
 #PARA DEBUG: 
-CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
+CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG  -I$(CURRENT)include $(OPTFLAGS)
 LIBS=-ldl $(OPTLIBS)
 PREFIX?=/usr/local
 

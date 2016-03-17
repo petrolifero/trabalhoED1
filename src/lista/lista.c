@@ -1,8 +1,8 @@
 #include <stdlib.h>
-#include <dbg.h>
-#include <lista/erros.h>
-#include <lista/lista.h>
 #include <errno.h>
+#include <lista/lista.h>
+#include <lista/erros.h>
+#include <util/dbg.h>
 
 void* Lista_obterValor (No* n)
 {
