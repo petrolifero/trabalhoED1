@@ -86,7 +86,7 @@ Grafo* addAresta (Grafo* grafo, unsigned int verticeInicial, unsigned int vertic
 void liberaGrafo(Grafo* g)
 {
 	Lista_iterar(g->vertices, first, next, cur){
-		if(cur) Lista_destruir(((Vertice *) cur)->vizinhos);
+		if(cur) liberaVertice(cur);
 	}
 
 	Lista_destruir(g->vertices);
