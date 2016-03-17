@@ -15,7 +15,7 @@ char *test_criacao(){
 }
 
 char *test_destruicao(){
-	Lista_limpar_destruir(lista);
+	Lista_destruir(lista);
 	return NULL;
 }
 
@@ -43,6 +43,21 @@ char *test_push_pop(){
 	mu_assert(Lista_count(lista) == 0, "Wrong count after pop.");
 
 	return NULL;
+}
+
+char *test_push(){
+	Lista_push(lista, test1);
+	mu_assert(Lista_last(lista) == test1, "wrong last value");
+
+	Lista_push(lista, test2);
+	mu_assert(Lista_last(lista) == test2, "wrong last value");
+
+	Lista_push(lista, test3);
+	mu_assert(Lista_last(lista) == test3, "wrong last value.");
+
+	mu_assert(Lista_count(lista) == 3, "wrong count on push");
+	return NULL;
+
 }
 
 char *test_unshift(){
@@ -93,6 +108,7 @@ char *all_tests(){
 	mu_run_test(test_unshift);
 	mu_run_test(test_remocao);
 	mu_run_test(test_shift);
+	mu_run_test(test_push);
 	mu_run_test(test_destruicao);
 
 	return NULL;

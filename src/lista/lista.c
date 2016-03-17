@@ -37,29 +37,6 @@ error:
 	return;
 }
 
-void Lista_limpar(Lista *lista){
-	check(!Lista_vazia(lista), "Lista inválida");
-	check(lista->count > 0 && lista->first != NULL, "Lista vazia.");
-	Lista_iterar(lista, first, next, cur){
-		free(cur->info);
-	}
-error:
-	return;
-}
-
-void Lista_limpar_destruir(Lista * lista){
-	check(!Lista_vazia(lista), "Lista Invalida.");
-	check(lista->count > 0 && lista->first != NULL, "Lista Vazia.");
-	Lista_iterar(lista, first, next, cur){
-		free(cur->info);
-		if(cur->prev){
-			free(cur->prev);
-		}
-	}
-error:
-	return;
-}
-
 void Lista_push(Lista * lista, void *value){
 	check(!Lista_vazia(lista), "Lista Inválida");
 	No *no = calloc(1, sizeof(No));

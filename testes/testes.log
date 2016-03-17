@@ -9,17 +9,18 @@ DEBUG testes/grafo_testes.c:44:
 ----- teste_libera
 [ERRO] (src/lista/lista.c:27: errno: None) Lista Vazia.
 [ERRO] (src/lista/lista.c:26: errno: None) Lista Vazia.
-DEBUG testes/lista_testes.c:101: ----- RODANDO: ./testes/lista_testes
-DEBUG testes/lista_testes.c:91: 
+DEBUG testes/lista_testes.c:117: ----- RODANDO: ./testes/lista_testes
+DEBUG testes/lista_testes.c:106: 
 ----- test_criacao
-DEBUG testes/lista_testes.c:92: 
+DEBUG testes/lista_testes.c:107: 
 ----- test_push_pop
-DEBUG testes/lista_testes.c:93: 
+DEBUG testes/lista_testes.c:108: 
 ----- test_unshift
-DEBUG testes/lista_testes.c:94: 
+DEBUG testes/lista_testes.c:109: 
 ----- test_remocao
-DEBUG testes/lista_testes.c:95: 
+DEBUG testes/lista_testes.c:110: 
 ----- test_shift
-DEBUG testes/lista_testes.c:96: 
+DEBUG testes/lista_testes.c:111: 
+----- test_push
+DEBUG testes/lista_testes.c:112: 
 ----- test_destruicao
-[ERRO] (src/lista/lista.c:52: errno: None) Lista Vazia.
