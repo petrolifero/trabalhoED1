@@ -1,15 +1,47 @@
-CURRENT=`pwd`
-CFLAGS=-Ofast -Wall -Werror -Wextra -std=c11 -fomit-frame-pointer -march=native -I$(CURRENT)/include
+#PARA ENTREGAR:
+CURRENT=$(dir Makefile)
+#CFLAGS=-Ofast -Wall -Werror -Wextra -std=c11 -fomit-frame-pointer -march=native -I$(CURRENT)include
+#PARA DEBUG: 
+CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
+LIBS=-ldl $(OPTLIBS)
+PREFIX?=/usr/local
 
+SOURCES=$(wildcard src/**/*.c src/*.c)
+OBJECTS=$(patsubst %.c,%.o,$(SOURCES))
 
-build: support grafo.o
-	gcc main.c util/Lista.o grafo.o -o main $(CFLAGS)
+TEST_SRC=$(wildcard testes/*_testes.c)
+TESTS=$(patsubst %.c,%,$(TEST_SRC))
 
-support:
-	#CFLAGS="$(CFLAGS)" make  -C util/
-	gcc grafo.c -c -o grafo.o $(CFLAGS)
+TARGET=build/libgrafos.a
+SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
 
+# The Target Build
+all: $(TARGET) $(SO_TARGET) testes
+
+dev: CFLAGS=-g -Wall -Isrc -Wall -Wextra $(OPTFLAGS)
+dev: all
+
+$(TARGET): CFLAGS += -fPIC 
+$(TARGET): build $(OBJECTS)
+	ar rcs $@ $(OBJECTS)
+	ranlib $@
+$(SO_TARGET): CFLAGS += -lm
+$(SO_TARGET): $(TARGET) $(OBJECTS)
+	$(CC) -shared -o $@ $(OBJECTS)
+
+build:
+	@mkdir -p build
+	@mkdir -p bin
+
+# The Unit Tests
+.PHONY: testes 
+testes: LDLIBS += $(TARGET)
+testes: $(TESTS)
+	sh ./testes/testar.sh
+
+# The Cleaner
 clean:
-	rm -rf *.o
-	rm main
-	make clean -C util/
+	rm -rf build $(OBJECTS) $(TESTS)
+	rm -f testes/testes.log
+	find . -name "*.gc*" -exec rm {} \;
+	rm -rf `find . -name "*.dSYM" -print`
