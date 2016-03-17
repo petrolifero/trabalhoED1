@@ -15,18 +15,16 @@
 	message = test(); tests_run++; if (message) return message;
 
 #define RUN_TESTS(name) int main(int argc, char *argv[]) {\
-	argc = 1; \
-	printf("%d", argc);\
-	debug("----- RUNNING: %s", argv[0]);\
-	printf("----\nRUNNING: %s\n", argv[0]);\
+	if(argc)debug("----- RODANDO: %s", argv[0]);\
+	printf("----\nRODANDO: %s\n", argv[0]);\
 	char *result = name();\
 	if (result != 0) {\
-		printf("FAILED: %s\n", result);\
+		printf("FALHOU: %s\n", result);\
 	}\
 	else {\
-		printf("ALL TESTS PASSED\n");\
+		printf("TODOS TESTES PASSARAM\n");\
 	}\
-	printf("Tests run: %d\n", tests_run);\
+	printf("Testes rodados: %d\n", tests_run);\
 	exit(result != 0);\
 }
 

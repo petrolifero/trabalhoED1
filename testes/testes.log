@@ -1,4 +1,4 @@
-DEBUG testes/grafo_testes.c:49: ----- RUNNING: ./testes/grafo_testes
+DEBUG testes/grafo_testes.c:49: ----- RODANDO: ./testes/grafo_testes
 DEBUG testes/grafo_testes.c:41: 
 ----- teste_initGrafo
 DEBUG testes/grafo_testes.c:42: 
@@ -7,5 +7,19 @@ DEBUG testes/grafo_testes.c:43:
 ----- teste_imprime
 DEBUG testes/grafo_testes.c:44: 
 ----- teste_libera
-[ERROR] (src/lista/lista.c:27: errno: None) Lista Vazia.
-[ERROR] (src/lista/lista.c:26: errno: None) Lista Vazia.
+[ERRO] (src/lista/lista.c:27: errno: None) Lista Vazia.
+[ERRO] (src/lista/lista.c:26: errno: None) Lista Vazia.
+DEBUG testes/lista_testes.c:101: ----- RODANDO: ./testes/lista_testes
+DEBUG testes/lista_testes.c:91: 
+----- test_criacao
+DEBUG testes/lista_testes.c:92: 
+----- test_push_pop
+DEBUG testes/lista_testes.c:93: 
+----- test_unshift
+DEBUG testes/lista_testes.c:94: 
+----- test_remocao
+DEBUG testes/lista_testes.c:95: 
+----- test_shift
+DEBUG testes/lista_testes.c:96: 
+----- test_destruicao
+[ERRO] (src/lista/lista.c:52: errno: None) Lista Vazia.

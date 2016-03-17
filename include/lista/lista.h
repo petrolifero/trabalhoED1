@@ -27,13 +27,16 @@ for(V = _no = L->S; _no != NULL; V = _no = _no->M)
 #define Lista_vazia(L) (L == NULL)
 
 /*Retorna o primeiro no da lista*/
-#define Lista_first(A) ((A)->first != NULL ? (A)->first->value : NULL)
+#define Lista_first(A) ((A)->first != NULL ? (A)->first->info : NULL)
 
 /*Retorna o último nó da lista*/
-#define Lista_last(A) ((A)->last != NULL ? (A)->last->value : NULL)
+#define Lista_last(A) ((A)->last != NULL ? (A)->last->info : NULL)
 
 /*Dá o proximo no (substituto de "cdr")*/
 #define Lista_prox(N) ((N) != NULL ? (N)->prox : NULL)
+
+/*Dá o tamanho da lista*/
+#define Lista_count(A) ((A)->count)
 
 void* Lista_obterValor (No* l);
 
