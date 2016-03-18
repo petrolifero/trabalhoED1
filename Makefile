@@ -12,11 +12,14 @@ OBJECTS=$(patsubst %.c,%.o,$(SOURCES))
 TEST_SRC=$(wildcard testes/*_testes.c)
 TESTS=$(patsubst %.c,%,$(TEST_SRC))
 
+INTERFACE_SRC=$(wildcard interface/*.c)
+INTERFACE=$(patsubst %.c,%,$(INTERFACE_SRC))
+
 TARGET=build/libgrafos.a
 SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
 
 # The Target Build
-all: $(TARGET) $(SO_TARGET) testes
+all: $(TARGET) $(SO_TARGET) testes interface
 
 dev: CFLAGS=-g -Wall -Isrc -Wall -Wextra $(OPTFLAGS)
 dev: all
@@ -39,9 +42,12 @@ testes: LDLIBS += $(TARGET)
 testes: $(TESTS)
 	sh ./testes/testar.sh
 
+interface: LDLIBS += $(TARGET)
+interface: $(INTERFACE)
+
 # The Cleaner
 clean:
-	rm -rf build $(OBJECTS) $(TESTS)
+	rm -rf build $(OBJECTS) $(TESTS) $(INTERFACE)
 	rm -f testes/testes.log
 	find . -name "*.gc*" -exec rm {} \;
 	rm -rf `find . -name "*.dSYM" -print`
