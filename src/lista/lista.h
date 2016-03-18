@@ -14,6 +14,7 @@ typedef struct no
 /*A lista, que contem os nós*/
 typedef struct lista {
 	int count;
+	void (liberaElemento) (void*);
 	No *first;
 	No *last;
 }Lista;
@@ -38,7 +39,7 @@ for(V = _no = L->S; _no != NULL; V = _no = _no->M)
 void* Lista_obterValor (No* l);
 
 /*Cria uma nova lista*/
-Lista *Lista_cria();
+Lista *Lista_cria(void (*liberaFunction)(void*));
 
 /*Libera os elementos da @lista, destruindo-os*/
 void Lista_destruir(Lista *lista);

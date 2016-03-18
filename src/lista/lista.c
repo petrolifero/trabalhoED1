@@ -16,10 +16,17 @@ void* Lista_obterValor (No* n)
     return n->info;
 }
 
-Lista *Lista_cria(){
+Lista *Lista_cria(void (*liberaFunction) (void*)){
 	//Da no mesmo que verificar se é null e retornar null
 	//vamos encapsular a lista como uma coisa, os nós como outra
-	return calloc(1, sizeof(Lista)); 
+	Lista* tmp=calloc(1, sizeof(Lista));
+	if(!tmp)
+	{
+		errno=ENOMEM;
+		return NULL;
+	}
+	tmp->liberaElemento=liberaFunction;
+	return tmp;
 }
 
 void Lista_destruir(Lista *lista){
