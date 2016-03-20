@@ -14,7 +14,7 @@ typedef struct no
 /*A lista, que contem os nós*/
 typedef struct lista {
 	int count;
-	void (liberaElemento) (void*);
+	void (*liberaElemento) (void*);
 	No *first;
 	No *last;
 }Lista;

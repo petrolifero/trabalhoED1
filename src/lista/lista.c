@@ -33,6 +33,7 @@ void Lista_destruir(Lista *lista){
 	check(!Lista_vazia(lista), "Lista Vazia.");
 	check(lista->count > 0 && !Lista_vazia(lista->first), "Lista Vazia.");
 	Lista_iterar(lista, first, next, cur){
+		lista->liberaElemento(cur->info);
 		if(cur->prev){
 			free(cur->prev);
 		}
@@ -40,8 +41,13 @@ void Lista_destruir(Lista *lista){
 
 	free(lista->last);
 	free(lista);
-error:
-	return;
+
+	//esse label não era chamado em nenhuma parte da função
+	//e se não existir um bom motivo, quero evitar goto's
+	//error:
+
+	//desnecessario numa função void
+	//return;
 }
 
 void Lista_push(Lista * lista, void *value){
@@ -60,8 +66,13 @@ void Lista_push(Lista * lista, void *value){
 	}
 
 	lista->count++;
-error:
-	return;
+
+	//esse label não era chamado em nenhuma parte da função
+	//e se não existir um bom motivo, quero evitar goto's
+	//error:
+
+	//desnecessario  numa função void
+	//return;
 }
 
 void *Lista_pop(Lista * lista){
@@ -69,7 +80,11 @@ void *Lista_pop(Lista * lista){
 	check(lista->count > 0 && lista->first != NULL, "Lista Vazia.");
 	No *no = lista->last;
 	return no != NULL ? Lista_remover(lista, no) : NULL;
-error:
+
+	//esse label não era chamado em nenhuma parte da função
+	//e se não existir um bom motivo, quero evitar goto's
+	//error:
+
 	return NULL;
 }
 
