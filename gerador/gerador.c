@@ -26,6 +26,7 @@ int parseInput(int argc, char *argv[], int *n, int *k, float *b)
 					*n=strtol(argv[i+1],&receiveDigitError , 10);
 					if(*receiveDigitError!='\0')
 					{
+							printf("Primeiro if");
 							*n=0;
 							*k=0;
 							*b=0;
@@ -38,6 +39,7 @@ int parseInput(int argc, char *argv[], int *n, int *k, float *b)
 					*k=strtol(argv[i+1],&receiveDigitError , 10);
 					if(*receiveDigitError!='\0')
 					{
+							printf("SEGUNDO IF");
 							*n=0;
 							*k=0;
 							*b=0;
@@ -51,6 +53,7 @@ int parseInput(int argc, char *argv[], int *n, int *k, float *b)
 					*b=strtod(argv[i+1],&receiveDigitError);
 					if(*receiveDigitError!='\0')
 					{
+							printf("Terceiro if");
 							*n=0;
 							*k=0;
 							*b=0;
@@ -59,46 +62,83 @@ int parseInput(int argc, char *argv[], int *n, int *k, float *b)
 	
 			}
 	}
-	if(*n<=0 || *k<=0 || *b<0.0 || *b>1|| *k%2!=0)
+	if((*n)<=0 || (*k)<=0 || (*b)<0.0 || (*b)>1|| (*k)%2 != 0)
 	{
+		printf("Quarto if");
 		return -1;
 	}
 	return 0;
 }
 
 
+void exibeGrafo(int **matriz, int n)
+{
+		int i;
+		int j;
+		for(i=0; i<n; i++)
+		{
+				printf("%d %.3f ", i, (rand()%1000)/1000.0);
+				for(j=0; j<n; j++)
+				{
+						if(matriz[i][j])
+						{
+								printf("%d %d ", j, rand()%100+1);
+						}
+				}
+				putchar('\n');
+		}
+}
+
 
 int writeSmallWorld(int n, int k, float beta)
 {
 	int i,j;
 	srand(time(NULL));
+	int **matriz;
 
-	typedef struct 
+	matriz=(int**)calloc(sizeof(int*), n);
+	for(i=0; i<n; i++)
 	{
-			int i,j;
-	}trocaArestas;
+			matriz[i]=(int*)calloc(sizeof(int), n);
+	}
 
-	Lista* colocacaoArestas=Lista_Cria(free);
+
 	for(i=n-1; i>=0; i--) //para cada vertice
 	{
-			float indice = ((float)(rand()%1000))/1000.0;
-			printf("%d %.3f ", i, indice);
 			for(j=0; j<n; j++) //para cada possivel vizinho
 			{
 					int edgeOnLattice=abs(i-j)%(n-1-k/2);
-					float perderAresta = (rand()%1000)/1000.0;
-					float ganharAresta = (rand()%1000)/1000.0;
-					int c;
-					if((c=temAlgumaTroca(colocacaoArestas,i,j) )!=-1)
+					if(edgeOnLattice>0 && edgeOnLattice<=k/2)
 					{
-							int custo=rand()%100+1;
-							printf("%d %d", j, custo);
-							Lista_remove();
+							matriz[i][j]=1;
+							matriz[j][i]=1;
 					}
-					
 			}
-			putchar('\n');
 	}
+
+	for(i=n-1; i>=0 ; i--)
+	{
+			for(j=i-1; j>=0 ; j--)
+			{
+					if(matriz[i][j])
+					{
+							float lanceDeProbabilidade = (rand()%1000)/1000.0;
+							if(lanceDeProbabilidade<=beta)
+							{
+									int k;
+									matriz[i][j]=0;
+									matriz[j][i]=0;
+									do
+									{
+											k=rand()%n;
+									}while(k==i||matriz[i][k]);
+									matriz[i][k]=1;
+									matriz[k][i]=1;
+							}
+					}
+			}
+	}
+	exibeGrafo(matriz, n);
 	return 0;
 }
 
@@ -107,15 +147,19 @@ int main(int argc, char *argv[])
 {
 	int n, k;
 	float beta;
+
 	if(argc<4)
 	{
 		usage(argv[0]);
 		return -1;
 	}
-	if(!parseInput(argc, argv, &n, &k, &beta))
+
+	if(parseInput(argc, argv, &n, &k, &beta)==-1)
 	{
+			printf("Deu Merda");
 			return -1;
 	}
-	printf("n = %d\nk=%d\nbeta=%f\n", n, k, beta);
 	return writeSmallWorld(n, k, beta);
+
+
 }
