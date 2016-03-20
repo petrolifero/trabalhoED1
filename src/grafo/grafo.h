@@ -11,6 +11,12 @@ typedef struct
 
 typedef struct
 {
+	int indice;
+	int custo;
+}Vizinhos;
+
+typedef struct
+{
 	Informacoes dado;
 	Lista* vizinhos;
 }Vertice;
