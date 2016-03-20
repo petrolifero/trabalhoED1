@@ -18,7 +18,6 @@ int parseInput(int argc, char *argv[], int *n, int *k, float *b)
 	*n=0;
 	*k=0;
 	*b=0;
-
 	for(i=1; i<argc; i++)
 	{
 			if(!strcmp(argv[i], "-n") && i+1<argc)
@@ -73,28 +72,32 @@ int writeSmallWorld(int n, int k, float beta)
 {
 	int i,j;
 	srand(time(NULL));
-	Lista* vizinhos=ListaInit(free);
-	for(i=0; i<n; i++)
+
+	typedef struct 
+	{
+			int i,j;
+	}trocaArestas;
+
+	Lista* colocacaoArestas=Lista_Cria(free);
+	for(i=n-1; i>=0; i--) //para cada vertice
 	{
 			float indice = ((float)(rand()%1000))/1000.0;
-			for(j=0; j<n; j++)
+			printf("%d %.3f ", i, indice);
+			for(j=0; j<n; j++) //para cada possivel vizinho
 			{
-					int edgeOnLattice=abs(i-j)%(N-1-K/2);
-					if(edgeOnLattice>0 && edgeOnLattice <= k/2)
+					int edgeOnLattice=abs(i-j)%(n-1-k/2);
+					float perderAresta = (rand()%1000)/1000.0;
+					float ganharAresta = (rand()%1000)/1000.0;
+					int c;
+					if((c=temAlgumaTroca(colocacaoArestas,i,j) )!=-1)
 					{
-							Vizinhos *tmp=(Vizinhos*)calloc(sizeof(Vizinhos), 1);
-							if(!tmp)
-							{
-									Lista_destruir(vizinhos);
-									errno=ENOMEM;
-									return -1;
-							}
-							tmp->indice=j;
-							tmp->custo=rand()%100+1;
-							Lista_push(vizinhos, (void*)tmp);
+							int custo=rand()%100+1;
+							printf("%d %d", j, custo);
+							Lista_remove();
 					}
 					
 			}
+			putchar('\n');
 	}
 	return 0;
 }

@@ -34,7 +34,7 @@ for(V = _no = L->S; _no != NULL; V = _no = _no->M)
 #define Lista_last(A) ((A)->last != NULL ? (A)->last->value : NULL)
 
 /*Dá o proximo no (substituto de "cdr")*/
-#define Lista_prox(N) ((N) != NULL ? (N)->prox : NULL)
+#define Lista_prox(N) ((N) != NULL ? (N)->next : NULL)
 
 void* Lista_obterValor (No* l);
 
