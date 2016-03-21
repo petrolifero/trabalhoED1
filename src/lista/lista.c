@@ -6,7 +6,7 @@
 
 void* Lista_obterValor (No* n)
 {
-	//macros são genéricos, 
+	//macros são genéricos,
 	//podemos usálos para verificar qualquer tipo
     if(Lista_vazia(n))
     {
@@ -44,10 +44,9 @@ void Lista_destruir(Lista *lista){
 
 	//esse label não era chamado em nenhuma parte da função
 	//e se não existir um bom motivo, quero evitar goto's
-	//error:
-
+	error:
 	//desnecessario numa função void
-	//return;
+        return;
 }
 
 void Lista_push(Lista * lista, void *value){
@@ -69,10 +68,10 @@ void Lista_push(Lista * lista, void *value){
 
 	//esse label não era chamado em nenhuma parte da função
 	//e se não existir um bom motivo, quero evitar goto's
-	//error:
+	error:
 
 	//desnecessario  numa função void
-	//return;
+	return;
 }
 
 void *Lista_pop(Lista * lista){
@@ -83,7 +82,7 @@ void *Lista_pop(Lista * lista){
 
 	//esse label não era chamado em nenhuma parte da função
 	//e se não existir um bom motivo, quero evitar goto's
-	//error:
+	error:
 
 	return NULL;
 }

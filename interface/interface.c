@@ -49,7 +49,7 @@ int main(int argc, char *argv[]){
 				break;
 			case 'r':
 				printf("\tDigite o indice do vértice:\n");
-				check(scanf("%u", &v)== 1, "É necessário que seja digitado um índice.");
+				check(scanf("%u", &v) == 1, "É necessário que seja digitado um índice.");
 				liberaVertice((void *) &v);
 				break;
 			case 'R':

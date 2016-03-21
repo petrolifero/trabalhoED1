@@ -28,10 +28,10 @@ for(V = _no = L->S; _no != NULL; V = _no = _no->M)
 #define Lista_vazia(L) (L == NULL)
 
 /*Retorna o primeiro no da lista*/
-#define Lista_first(A) ((A)->first != NULL ? (A)->first->value : NULL)
+#define Lista_first(A) ((A)->first != NULL ? (A)->first->info : NULL)
 
 /*Retorna o último nó da lista*/
-#define Lista_last(A) ((A)->last != NULL ? (A)->last->value : NULL)
+#define Lista_last(A) ((A)->last != NULL ? (A)->last->info : NULL)
 
 /*Dá o proximo no (substituto de "cdr")*/
 #define Lista_prox(N) ((N) != NULL ? (N)->next : NULL)
@@ -48,7 +48,7 @@ void Lista_atravessar(Lista* lista, void (*funcao) (void*));
 void Lista_destruir(Lista *lista);
 
 /*Limpa a @lista liberando os valores dos nós*/
-void Lista_limpar(Lista *lista); 
+void Lista_limpar(Lista *lista);
 
 /*Limpa e libera a @lista*/
 void Lista_limpar_destruir(Lista *lista);

@@ -1,0 +1,10 @@
+DEBUG testes/grafo_testes.c:49: ----- RODANDO: ./testes/grafo_testes
+DEBUG testes/grafo_testes.c:41: 
+----- teste_initGrafo
+DEBUG testes/grafo_testes.c:42: 
+----- teste_addAresta
+DEBUG testes/grafo_testes.c:43: 
+----- teste_imprime
+DEBUG testes/grafo_testes.c:44: 
+----- teste_libera
+Segmentation fault (core dumped)
