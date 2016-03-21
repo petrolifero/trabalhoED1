@@ -1,6 +1,8 @@
 
 build:
-	gcc gerador.c -o gerador -Wall -Wextra -Werror -I../src/
-
+	gcc geradorConexoMundoPequeno.c -o geradorConexoMundoPequeno -Wall -Wextra -Werror
+	gcc geradorDesconexo.c -o geradorDesconexo -Wall -Wextra -Werror
 clean:
-	rm gerador
+	rm geradorConexoMundoPequeno
+	rm geradorDesconexo
+

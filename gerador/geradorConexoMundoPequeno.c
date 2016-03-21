@@ -2,9 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
-#include <lista/lista.h>
 #include <time.h>
-#include <grafo/grafo.h>
 
 void usage(const char* nameOfProgram)
 {
@@ -75,17 +73,23 @@ void exibeGrafo(int **matriz, int n)
 {
 		int i;
 		int j;
+		FILE* fp=fopen("grafo.txt", "w");
+		if(!fp)
+		{
+				fprintf(stderr, "Não pude abrir o arquivo");
+				return;
+		}
 		for(i=0; i<n; i++)
 		{
-				printf("%d %.3f ", i, (rand()%1000)/1000.0);
+				fprintf(fp, "%d %.3f ", i, (rand()%1000)/1000.0);
 				for(j=0; j<n; j++)
 				{
 						if(matriz[i][j])
 						{
-								printf("%d %d ", j, rand()%100+1);
+								fprintf(fp, "%d %d ", j, matriz[i][j]);
 						}
 				}
-				putchar('\n');
+				fputc('\n', fp);
 		}
 }
 
@@ -110,8 +114,9 @@ int writeSmallWorld(int n, int k, float beta)
 					int edgeOnLattice=abs(i-j)%(n-1-k/2);
 					if(edgeOnLattice>0 && edgeOnLattice<=k/2)
 					{
-							matriz[i][j]=1;
-							matriz[j][i]=1;
+							int tmp = rand()%100+1;
+							matriz[i][j]=tmp;
+							matriz[j][i]=tmp;
 					}
 			}
 	}
@@ -126,14 +131,16 @@ int writeSmallWorld(int n, int k, float beta)
 							if(lanceDeProbabilidade<=beta)
 							{
 									int k;
+									int tmp;
 									matriz[i][j]=0;
 									matriz[j][i]=0;
 									do
 									{
 											k=rand()%n;
 									}while(k==i||matriz[i][k]);
-									matriz[i][k]=1;
-									matriz[k][i]=1;
+									tmp=rand()%100+1;
+									matriz[i][k]=tmp;
+									matriz[k][i]=tmp;
 							}
 					}
 			}
@@ -156,7 +163,8 @@ int main(int argc, char *argv[])
 
 	if(parseInput(argc, argv, &n, &k, &beta)==-1)
 	{
-			printf("Deu Merda");
+			printf("Problemas ao parsear sua entrada\n");
+			usage(argv[0]);
 			return -1;
 	}
 	return writeSmallWorld(n, k, beta);
