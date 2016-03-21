@@ -1,5 +1,5 @@
 #include <grafo/grafo.h>
-#include <util/dbg.h>
+#include <dbg.h>
 #include <stdio.h>
 
 #define MAXBUF 1024
@@ -9,15 +9,14 @@ Grafo *recuperarGrafo(FILE *arquivo);
 int main(int argc, char *argv[]){
 	FILE *arquivo;
 	Grafo *g;
-	char acao;
-	int rc;
+	char acao='c';
+	char *rc;
 	if(argc == 1){
 		char buffer[MAXBUF];
 		printf("Digite o nome do arquivo contendo as informações do grafo: \n");
-		rc = scanf("%s", buffer);
-		check(rc == 1, "Erro na inserção do nome.");
+		rc = fgets(buffer, MAXBUF, stdin);
+		check(rc, "Erro na inserção do nome.");
 		buffer[MAXBUF-1] = '\0';
-
 		arquivo = fopen(buffer, "r");
 		check(arquivo, "O arquivo não pode ser aberto.");
 	} else{
@@ -29,9 +28,8 @@ int main(int argc, char *argv[]){
 	g = recuperarGrafo(arquivo);
 	check(g, "Falha na criação do grafo. Seu arquivo é no formato correto?");
 	while(acao != 's'){
-		printf("Digite a ação:");
-		rc = scanf("%c", &acao);
-		check(rc == 1, "Passe uma das ações aceitas: 'l':listar vértices e custos\n 'a':adicionar vértice\n 'A':adicionar aresta \n \
+		printf("Digite a ação: ");
+		check(scanf("%c%*c", &acao) == 1, "Passe uma das ações aceitas: 'l':listar vértices e custos\n 'a':adicionar vértice\n 'A':adicionar aresta \n \
 				'r':remover vértice \n 'R':remover aresta \n 'v':verificar se o grafo é conexo \n 'c':encontrar caminho\n 's':sair");
 
 		unsigned int inicio, fim, v;
@@ -45,21 +43,18 @@ int main(int argc, char *argv[]){
 				printf("Vértice adicionado à rede.\n");
 				break;
 			case 'A':
-				printf("\tDigite os indices inicial e final da aresta:\n");
-				rc = scanf("%u %u", &inicio, &fim);
-				check(rc == 2, "É necessário que sejam digitados dois índices.");
+				printf("\tDigite os indices inicial e final da aresta separados por espaço:\n");
+				check(scanf("%u %u", &inicio, &fim)== 2, "É necessário que sejam digitados dois índices.");
 				addAresta(g, inicio, fim);
 				break;
 			case 'r':
 				printf("\tDigite o indice do vértice:\n");
-				rc = scanf("%u", &v);
-				check(rc == 1, "É necessário que seja digitado um índice.");
+				check(scanf("%u", &v)== 1, "É necessário que seja digitado um índice.");
 				liberaVertice((void *) &v);
 				break;
 			case 'R':
 				printf("\tDigite os indices inicial e final da aresta:\n");
-				rc = scanf("%u %u", &inicio, &fim);
-				check(rc == 2, "É necessário que sejam digitados dois índices.");
+				check(scanf("%u %u", &inicio, &fim)== 2, "É necessário que sejam digitados dois índices.");
 				removeArestas(g, inicio, fim);
 				break;
 			case 'v':
@@ -68,8 +63,7 @@ int main(int argc, char *argv[]){
 				break;
 			case 'c':
 				printf("\tDigite os indices inicial e final para saber se há um caminho:\n");
-				rc = scanf("%u %u", &inicio, &fim);
-				check(rc == 2, "É necessário que sejam digitados dois índices.");
+				check(scanf("%u %u", &inicio, &fim)== 2, "É necessário que sejam digitados dois índices.");
 				if(existeCaminho(g, inicio, fim)){
 					printf("\tExiste um caminho, e o caminho mínimo é:\n");
 					Lista_imprimir(djikstra(g, inicio, fim));

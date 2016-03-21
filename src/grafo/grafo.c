@@ -6,6 +6,32 @@
 #include <lista/lista.h>
 #include <grafo/grafo.h>
 
+typedef struct
+{
+	unsigned int nome;
+	float id;
+}Informacoes;
+
+typedef struct
+{
+	int indice;
+	int custo;
+}Vizinhos;
+
+typedef struct
+{
+	Informacoes dado;
+	Lista* vizinhos;
+}Vertice;
+
+typedef struct grafo
+{
+    unsigned int numeroVertices;
+    unsigned int numeroArestas;
+	Lista* vertices;
+}Grafo;
+
+
 void liberaVertice (void* v)
 {
 	Vertice *vertice=(Vertice*)v;
@@ -36,7 +62,7 @@ Grafo* addVertice (Grafo* grafo)
 		errno=ENOMEM;
 		return NULL;
 	}
-	tmp->vizinhos= Lista_cria();
+	tmp->vizinhos=Lista_cria(free);
 	tmp->dado.nome=grafo->numeroVertices;
 	tmp->dado.id=(rand()%1000)/1000;
 	Lista_unshift(grafo->vertices, (void *) tmp);
@@ -50,7 +76,7 @@ Grafo* initGrafo (unsigned int numeroVertices)
 	Grafo* tmp;
 	unsigned int i;
 	tmp=(Grafo*)calloc(1, sizeof(Grafo));
-	tmp->vertices = Lista_cria();
+	tmp->vertices = Lista_cria(liberaVertice);
 	for(i=0; i<numeroVertices; i++)
 	{
 		tmp=addVertice(tmp);
