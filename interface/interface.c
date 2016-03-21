@@ -57,12 +57,10 @@ int main(int argc, char *argv[]){
 				liberaVertice((void *) &v);
 				break;
 			case 'R':
-				/*
-				 *
-				 * TODO
-				 *	- Manutenção de arestas
-				 * 	
-				 * */
+				printf("\tDigite os indices inicial e final da aresta:\n");
+				rc = scanf("%u %u", &inicio, &fim);
+				check(rc == 2, "É necessário que sejam digitados dois índices.");
+				removeArestas(g, inicio, fim);
 				break;
 			case 'v':
 				if(estaConexo(g)) printf("\tO Grafo é conexo.\n");
