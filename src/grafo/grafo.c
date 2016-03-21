@@ -197,3 +197,8 @@ bool existeCaminho(Grafo* grafo, int nomeOrigem, int nomeDestino)
 	Lista_destruir(tmp);
 	return true;
 }
+
+int numeroVertices(Grafo* grafo)
+{
+		return grafo->numeroVertices;
+}

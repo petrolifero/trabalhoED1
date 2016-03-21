@@ -41,6 +41,9 @@ void* Lista_obterValor (No* l);
 /*Cria uma nova lista*/
 Lista *Lista_cria(void (*liberaFunction)(void*));
 
+
+void Lista_atravessar(Lista* lista, void (*funcao) (void*));
+
 /*Libera os elementos da @lista, destruindo-os*/
 void Lista_destruir(Lista *lista);
 

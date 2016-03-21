@@ -97,7 +97,7 @@ Grafo *recuperarGrafo(FILE *arquivo){
 
 	for(i = 0; i < tamanho; i++){
 		grafo = addVertice(grafo);
-		id = grafo->numeroVertices - 1;
+		id = numeroVertices(grafo) - 1;
 		//rc = fread(&id, sizeof(int), 1, arquivo);
 		//rc = fread(&nome, sizeof(double), 1, arquivo);
 		do{

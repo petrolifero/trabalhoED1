@@ -18,5 +18,6 @@ bool* buscaEmProfundidade (Grafo* g, void (*funcao)(void*));
 bool estaConexo (Grafo* grafo);
 Lista* djikstra (Grafo* grafo, int nomeOrigem, int nomeDestino);
 bool existeCaminho(Grafo* grafo, int nomeOrigem, int nomeDestino);
+int numeroVertices (Grafo* grafo);
 
 #endif
