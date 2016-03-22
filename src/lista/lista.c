@@ -4,7 +4,7 @@
 #include <lista/erros.h>
 #include <util/dbg.h>
 
-void* Lista_obterValor (No* n)
+void* No_obterValor (No* n)
 {
 	//macros são genéricos,
 	//podemos usálos para verificar qualquer tipo
@@ -149,26 +149,30 @@ error:
 	return result;
 }
 
-void Lista_imprimir(Lista* l)
-{
-		int *i;
-		if(Lista_vazia(l))
-		{
-				return;
-		}
-		i=(int*)l->first->info;
-		printf("%d ", *i);
-		Lista_imprimir(Lista_prox(l));
+void No_imprimir(No *no){
+	if(No_vazio(no)){
+		return;
+	}
+	printf("%d ", *((int *) No_obterValor(no)));
+	No_imprimir(No_prox(no));
 }
 
+void Lista_imprimir(Lista* l)
+{
+	if(Lista_vazia(l))
+	{
+		return;
+	}
+	No_imprimir(l->first);
+}
 
 void Lista_remover_val (Lista* l, void *val)
 {
 	Lista_iterar(l, first, next, cur){
-		if(cur->info == nome) Lista_remover(l, cur);
+		if(cur->info == val) Lista_remover(l, cur);
 	}
 }
 
 void Lista_remover_nome(Lista *lista, int nome){
-	Lista_remover_val(lista, (void *) &nome);
+	Lista_remover_val(lista, (void *) nome);
 }

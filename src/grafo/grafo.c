@@ -44,10 +44,10 @@ void liberaVertice (void* v)
 static Vertice* pegaVertice(Grafo* grafo, int nome)
 {
 	Lista_iterar(grafo->vertices, first, next, cur){
-		int nomeAtual=((Vertice*) Lista_obterValor(cur))->dado.nome;
+		int nomeAtual=((Vertice*) No_obterValor(cur))->dado.nome;
 		if(nomeAtual==nome)
 		{
-			return (Vertice*) Lista_obterValor(cur);
+			return (Vertice*) No_obterValor(cur);
 		}
 	}
 	return NULL;
@@ -91,7 +91,7 @@ Grafo* addAresta (Grafo* grafo, unsigned int verticeInicial, unsigned int vertic
 	
 	Lista_iterar(grafo->vertices, first, next, cur){
 		if(contador == 2) break;
-		Vertice *tmp=(Vertice*) Lista_obterValor(cur);
+		Vertice *tmp=(Vertice*) No_obterValor(cur);
 		int *i=(int*)calloc(1,sizeof(int));
 		if(tmp->dado.nome == verticeInicial)
 		{
@@ -135,7 +135,7 @@ static void buscaEmProfundidadeAux (Grafo* grafo, bool* visitados, Vertice* vert
 		funcao(vertice);
 	}
 	Lista_iterar(vertice->vizinhos, first, next, cur){
-		int *temporario=(int*) Lista_obterValor(cur);
+		int *temporario=(int*) No_obterValor(cur);
 		if(!visitados[*temporario])
 		{
 			buscaEmProfundidadeAux(grafo,visitados,pegaVertice(grafo, *temporario), funcao);
@@ -153,7 +153,7 @@ bool* buscaEmProfundidade (Grafo* g, void (*funcao)(void*))
 		errno=ENOMEM;
 		return NULL;
 	}
-	buscaEmProfundidadeAux(g,visitados, (Vertice*)Lista_obterValor(g->vertices->first),funcao);
+	buscaEmProfundidadeAux(g,visitados, (Vertice*)No_obterValor(g->vertices->first),funcao);
 	return visitados;
 }
 

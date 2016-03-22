@@ -2,8 +2,6 @@
 #include <lista/lista.h>
 #include <assert.h>
 
-#define Lista_count(A) ((A)->count)
-
 static Lista *lista = NULL;
 char *test1 = "test1 data";
 char *test2 = "test2 data";
@@ -13,6 +11,16 @@ char *test_criacao(){
 	lista = Lista_cria(free);
 	mu_assert(lista != NULL, "Falha na criação da lista.");
 
+	return NULL;
+}
+
+char *test_obterValor(){
+	lista = Lista_cria(free);
+
+	Lista_push(lista, test1);
+	mu_assert(No_obterValor(lista->first) == test1, "Valor errado no obterValor.");
+	
+	Lista_destruir(lista);
 	return NULL;
 }
 
@@ -112,6 +120,7 @@ char *all_tests(){
 	mu_run_test(test_shift);
 	mu_run_test(test_push);
 	mu_run_test(test_destruicao);
+	mu_run_test(test_obterValor);
 
 	return NULL;
 }
