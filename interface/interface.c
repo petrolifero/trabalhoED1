@@ -33,7 +33,8 @@ int main(int argc, char *argv[]){
 				'r':remover vértice \n 'R':remover aresta \n 'v':verificar se o grafo é conexo \n 'c':encontrar caminho\n 's':sair");
 
 		unsigned int inicio, fim, v;
-		double valor;
+		//Se não pedimos ao usuario o peso da aresta, valor é desnecessario
+	//	double valor;
 		switch(acao){
 			case 'l':
 				imprimeGrafo(g);
@@ -55,7 +56,7 @@ int main(int argc, char *argv[]){
 			case 'R':
 				printf("\tDigite os indices inicial e final da aresta:\n");
 				check(scanf("%u %u", &inicio, &fim)== 2, "É necessário que sejam digitados dois índices.");
-				removeArestas(g, inicio, fim);
+				removeAresta(g, inicio, fim);
 				break;
 			case 'v':
 				if(estaConexo(g)) printf("\tO Grafo é conexo.\n");

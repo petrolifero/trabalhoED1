@@ -68,4 +68,5 @@ void *Lista_remover(Lista *lista, No *no);
 /*Clears the elements of a list and destroys their values*/
 void *Lista_shift(Lista *lista);
 
+void Lista_imprimir(Lista* l);
 #endif

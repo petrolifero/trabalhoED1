@@ -148,3 +148,15 @@ void *Lista_remover(Lista * lista, No * no){
 error:
 	return result;
 }
+
+void Lista_imprimir(Lista* l)
+{
+		int *i;
+		if(Lista_vazia(l))
+		{
+				return;
+		}
+		i=(int*)l->first->value;
+		printf("%d ", *i);
+		Lista_imprimir(Lista_prox(l));
+}
