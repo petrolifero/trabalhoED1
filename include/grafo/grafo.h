@@ -17,10 +17,18 @@ typedef struct
 
 typedef struct
 {
+	unsigned int indice;
+	unsigned int custo;
+}Vizinhos;
+
+typedef struct
+{
     unsigned int numeroVertices;
     unsigned int numeroArestas;
 	Lista* vertices;
 }Grafo;
+
+#define Grafo_numVertices(G) (G->numeroVertices)
 
 Grafo* initGrafo (unsigned int numeroVertices);
 void liberaVertice (void* v);
@@ -32,5 +40,10 @@ bool* buscaEmProfundidade (Grafo* g, void (*funcao)(void*));
 bool estaConexo (Grafo* grafo);
 Lista* djikstra (Grafo* grafo, int nomeOrigem, int nomeDestino);
 bool existeCaminho(Grafo* grafo, int nomeOrigem, int nomeDestino);
+void imprime(void* vertice);
+void imprimeGrafo (Grafo* g);
+int pegaCusto (Grafo* grafo, unsigned int i, unsigned int j);
+Grafo* removeAresta (Grafo* grafo, unsigned int i, unsigned int j);
+Grafo* removeVertice(Grafo* g, unsigned int nome);
 
 #endif
