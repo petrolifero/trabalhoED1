@@ -156,17 +156,19 @@ void Lista_imprimir(Lista* l)
 		{
 				return;
 		}
-		i=(int*)l->first->value;
+		i=(int*)l->first->info;
 		printf("%d ", *i);
 		Lista_imprimir(Lista_prox(l));
 }
 
 
-void Lista_remover_nome (Lista* l, int nome)
+void Lista_remover_val (Lista* l, void *val)
 {
-	Lista* tmp=Lista_cria(free);
-	Lista_iterar(l, first, next, cur)
-	{
-			Vizinhos* tmp2=
+	Lista_iterar(l, first, next, cur){
+		if(cur->info == nome) Lista_remover(l, cur);
 	}
+}
+
+void Lista_remover_nome(Lista *lista, int nome){
+	Lista_remover_val(lista, (void *) &nome);
 }

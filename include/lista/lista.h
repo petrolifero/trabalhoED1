@@ -67,4 +67,6 @@ void *Lista_remover(Lista *lista, No *no);
 /*Clears the elements of a list and destroys their values*/
 void *Lista_shift(Lista *lista);
 
+/*Remove um nó da @lista com o valor de @nome*/
+void Lista_remover_nome(Lista *lista, int nome);
 #endif
