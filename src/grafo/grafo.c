@@ -14,8 +14,8 @@ typedef struct
 
 typedef struct
 {
-	int indice;
-	int custo;
+	unsigned int indice;
+	unsigned int custo;
 }Vizinhos;
 
 typedef struct
@@ -120,7 +120,7 @@ void liberaGrafo(Grafo* g)
 }
 
 //imprime finish
-static void imprime(void* vertice)
+void imprime(void* vertice)
 {
 	Vertice* tmp=(Vertice*)vertice;
 	printf("%d\n", tmp->dado.nome);
@@ -160,7 +160,14 @@ bool* buscaEmProfundidade (Grafo* g, void (*funcao)(void*))
 //imprimeGrafo finish
 void imprimeGrafo (Grafo* g)
 {
-	buscaEmProfundidade(g,imprime);
+		Lista_iterar(g->vertices, first, next, cur)
+		{
+				printf("%d %.3f ",((Vertice*) (cur->info))->dado.nome, ((Vertice*)cur->info)->dado.id);
+				Lista_iterar(((Vertice*)(cur->info))->vizinhos, first, next, cur2)
+				{
+						printf("%d %d ", ((Vizinhos*)(cur2->info))->indice, ((Vizinhos*)cur2->info)->custo);
+				}
+		}
 }
 
 //estaConexo finish
@@ -201,4 +208,22 @@ bool existeCaminho(Grafo* grafo, int nomeOrigem, int nomeDestino)
 int numeroVertices(Grafo* grafo)
 {
 		return grafo->numeroVertices;
+}
+
+int pegaCusto (Grafo* grafo, unsigned int i, unsigned int j)
+{
+		Lista_iterar(grafo->vertices, first, next, cur)
+		{
+				if(((Vertice*)(cur->info))->dado.nome==i)
+				{
+						Lista_iterar(((Vertice*)cur->info)->vizinhos, first, next, cur2)
+						{
+								if(((Vizinhos*)(cur2->info))->indice==j)
+								{
+										return ((Vizinhos*)cur2->info)->custo;
+								}
+						}
+				}
+		}
+		return 0;
 }
