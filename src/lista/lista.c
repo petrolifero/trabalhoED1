@@ -33,7 +33,6 @@ void Lista_destruir(Lista *lista){
 	check(!Lista_vazia(lista), "Lista Vazia.");
 	check(lista->count > 0 && !Lista_vazia(lista->first), "Lista Vazia.");
 	Lista_iterar(lista, first, next, cur){
-		lista->liberaElemento(cur->info);
 		if(cur->prev){
 			free(cur->prev);
 		}

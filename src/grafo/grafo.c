@@ -6,32 +6,6 @@
 #include <lista/lista.h>
 #include <grafo/grafo.h>
 
-typedef struct
-{
-	unsigned int nome;
-	float id;
-}Informacoes;
-
-typedef struct
-{
-	unsigned int indice;
-	unsigned int custo;
-}Vizinhos;
-
-typedef struct
-{
-	Informacoes dado;
-	Lista* vizinhos;
-}Vertice;
-
-typedef struct grafo
-{
-    unsigned int numeroVertices;
-    unsigned int numeroArestas;
-	Lista* vertices;
-}Grafo;
-
-
 void liberaVertice (void* v)
 {
 	Vertice *vertice=(Vertice*)v;
@@ -111,9 +85,9 @@ Grafo* addAresta (Grafo* grafo, unsigned int verticeInicial, unsigned int vertic
 //liberaGrafo finish
 void liberaGrafo(Grafo* g)
 {
-	Lista_iterar(g->vertices, first, next, cur){
+	/*Lista_iterar(g->vertices, first, next, cur){
 		if(cur) liberaVertice(cur);
-	}
+	}*/
 
 	Lista_destruir(g->vertices);
 	free(g);

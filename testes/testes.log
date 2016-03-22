@@ -1,0 +1,26 @@
+DEBUG testes/grafo_testes.c:49: ----- RODANDO: ./testes/grafo_testes
+DEBUG testes/grafo_testes.c:41: 
+----- teste_initGrafo
+DEBUG testes/grafo_testes.c:42: 
+----- teste_addAresta
+DEBUG testes/grafo_testes.c:43: 
+----- teste_imprime
+DEBUG testes/grafo_testes.c:44: 
+----- teste_libera
+DEBUG testes/lista_testes.c:128: ----- RODANDO: ./testes/lista_testes
+DEBUG testes/lista_testes.c:116: 
+----- test_criacao
+DEBUG testes/lista_testes.c:117: 
+----- test_push_pop
+DEBUG testes/lista_testes.c:118: 
+----- test_unshift
+DEBUG testes/lista_testes.c:119: 
+----- test_remocao
+DEBUG testes/lista_testes.c:120: 
+----- test_shift
+DEBUG testes/lista_testes.c:121: 
+----- test_push
+DEBUG testes/lista_testes.c:122: 
+----- test_destruicao
+DEBUG testes/lista_testes.c:123: 
+----- test_obterValor

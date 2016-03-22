@@ -47,17 +47,8 @@ Lista *Lista_cria(void (*liberaFunction)(void*));
 /* Retorna o tamanho da @lista */
 #define Lista_count(L) (L->count)
 
-/*Caminha pela @lista, aplicando a @funcao*/
-void Lista_atravessar(Lista* lista, void (*funcao) (void*));
-
 /*Libera os elementos da @lista, destruindo-os*/
 void Lista_destruir(Lista *lista);
-
-/*Limpa a @lista liberando os valores dos nós*/
-void Lista_limpar(Lista *lista);
-
-/*Limpa e libera a @lista*/
-void Lista_limpar_destruir(Lista *lista);
 
 /*Insere @value no fim da @lista*/
 void Lista_push(Lista *lista, void *value);
@@ -71,10 +62,12 @@ void Lista_unshift(Lista *lista, void *value);
 /*Remove o @no da @lista*/
 void *Lista_remover(Lista *lista, No *no);
 
-/*Clears the elements of a list and destroys their values*/
+/*Remove o primeiro no da @lista*/
 void *Lista_shift(Lista *lista);
 
+/*Imprime os elementos de @l*/
 void Lista_imprimir(Lista* l);
 
+/*remove o item de valor @nome de @l*/
 void Lista_remover_nome(Lista* l, int nome);
 #endif
