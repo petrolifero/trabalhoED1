@@ -227,3 +227,59 @@ int pegaCusto (Grafo* grafo, unsigned int i, unsigned int j)
 		}
 		return 0;
 }
+
+Grafo* removeAresta (Grafo* grafo, unsigned int i, unsigned int j)
+{
+		int contador=0;
+		Lista_iterar(grafo->vertices, first, next, cur)
+		{
+				Vertice* tmp=(Vertice*)cur->info;
+				if(tmp->dado.nome==i)
+				{
+						Lista_iterar(tmp->vizinhos, first, next, cur2)
+						{
+								Vizinhos* tmp2=(Vizinhos*)cur2->info;
+								if(tmp2->indice==j)
+								{
+										Lista_remover_nome(tmp->vizinhos, j);
+										contador++;
+										if(contador==2)
+												return grafo;
+										break;
+								}
+
+						}
+				}
+				else if (tmp->dado.nome==j)
+				{
+						Lista_iterar(tmp->vizinhos, first, next, cur2)
+						{
+								Vizinhos* tmp2=(Vizinhos*)cur2->info;
+								if(tmp2->indice==i)
+								{
+										Lista_remover_nome(tmp->vizinhos, i);
+										contador++;
+										if(contador==2)
+												return grafo;
+										break;
+								}
+
+						}
+				}
+
+
+		}
+		return NULL;
+}
+
+Grafo* removeVertice(Grafo* g, unsigned int nome)
+{
+		Lista_iterar(g->vertices, first, next, cur)
+		{
+				Vertice* tmp=(Vertice*)cur->info;
+				if()
+				{
+
+				}
+		}
+}

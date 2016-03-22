@@ -69,4 +69,6 @@ void *Lista_remover(Lista *lista, No *no);
 void *Lista_shift(Lista *lista);
 
 void Lista_imprimir(Lista* l);
+
+void Lista_remover_nome(Lista* l, int nome);
 #endif

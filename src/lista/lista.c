@@ -160,3 +160,13 @@ void Lista_imprimir(Lista* l)
 		printf("%d ", *i);
 		Lista_imprimir(Lista_prox(l));
 }
+
+
+void Lista_remover_nome (Lista* l, int nome)
+{
+	Lista* tmp=Lista_cria(free);
+	Lista_iterar(l, first, next, cur)
+	{
+			Vizinhos* tmp2=
+	}
+}
