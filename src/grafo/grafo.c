@@ -277,9 +277,18 @@ Grafo* removeVertice(Grafo* g, unsigned int nome)
 		Lista_iterar(g->vertices, first, next, cur)
 		{
 				Vertice* tmp=(Vertice*)cur->info;
-				if()
-				{
-
-				}
+				Lista_remover_nome(tmp->vizinhos, nome);
 		}
+		{
+			Lista_iterar(g->vertices, first, next, cur2)
+			{
+					Vertice* tmp=(Vertice*)cur2->info;
+					if(tmp->dado.nome==nome)
+					{
+						Lista_remover(g->vertices, cur2);
+						return g;
+					}
+			}
+		}
+		return 	NULL;
 }
