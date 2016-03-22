@@ -248,13 +248,13 @@ Grafo* removeAresta (Grafo* grafo, unsigned int i, unsigned int j)
 
 Grafo* removeVertice(Grafo* g, unsigned int nome)
 {
-		Lista_iterar(g->vertices, first, next, cur)
+	Lista_iterar(g->vertices, first, next, cur)
+	{
+		Vertice* tmp=(Vertice*)cur->info;
+		if(0)
 		{
-				Vertice* tmp=(Vertice*)cur->info;
-				if(0)
-				{
 
-				}
 		}
-	return initGrafo(1);
+	}
+return initGrafo(1);
 }
