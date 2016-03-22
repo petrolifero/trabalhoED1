@@ -4,6 +4,27 @@
 
 #define MAXBUF 1024
 
+int ignorarDoisEspacos(char* s)
+{
+	int contador=0;
+	int i=0;
+	while(true)
+	{
+		if(contador==2)
+		{
+			break;
+		}
+		if(linha[i]==' ')
+		{
+			contador++;
+		}
+		if(!s[i])
+				return i;
+		i++;
+	}
+	return i;
+}
+
 Grafo *recuperarGrafo(FILE *arquivo);
 
 int main(int argc, char *argv[]){
@@ -89,24 +110,26 @@ error:
 	return 1;
 }
 
+#define MAXLINHA (16*1024)
+
 Grafo *recuperarGrafo(FILE *arquivo){
 	int tamanho=1, rc, i = 0, vizinho, id;
 	//double nome;
 	Grafo *grafo = initGrafo(1);
+	char linha[MAXLINHA];
+	fscanf(arquivo, "%MAXLINHA[^\n]%*c",linha);
+	int i=0;
+	int contador=0;
+	while(!feof(arquivo))
+	{
+			int vizinho;
+			addVertice(grafo);
+			i+=ignorarDoisEspacos(linha);
+			if(
+			scanf("%d ");
+	}
+
 	
-	
-/*
-	for(i = 0; i < tamanho; i++){
-		grafo = addVertice(grafo);
-		id = numeroVertices(grafo) - 1;
-		//rc = fread(&id, sizeof(int), 1, arquivo);
-		//rc = fread(&nome, sizeof(double), 1, arquivo);
-		do{
-			rc = fread(&vizinho, sizeof(int), 1, arquivo);
-			grafo = addAresta(grafo, id, vizinho);
-		}while(rc == 1);
-	}*/
-	return initGrafo(1);
 error:
 	return NULL;
 }
