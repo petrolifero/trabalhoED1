@@ -14,6 +14,7 @@ typedef struct no
 /*A lista, que contem os nós*/
 typedef struct lista {
 	int count;
+	void (*liberaElemento) (void*);
 	No *first;
 	No *last;
 }Lista;
@@ -26,6 +27,9 @@ for(V = _no = L->S; _no != NULL; V = _no = _no->M)
 /*Retorna se a lista está vazia*/
 #define Lista_vazia(L) (L == NULL)
 
+/*Retorna se o nó é inválido*/
+#define No_vazio(N) (N == NULL)
+
 /*Retorna o primeiro no da lista*/
 #define Lista_first(A) ((A)->first != NULL ? (A)->first->info : NULL)
 
@@ -33,21 +37,24 @@ for(V = _no = L->S; _no != NULL; V = _no = _no->M)
 #define Lista_last(A) ((A)->last != NULL ? (A)->last->info : NULL)
 
 /*Dá o proximo no (substituto de "cdr")*/
-#define Lista_prox(N) ((N) != NULL ? (N)->prox : NULL)
+#define No_prox(N) ((N) != NULL ? (N)->next : NULL)
 
-/*Dá o tamanho da lista*/
-#define Lista_count(A) ((A)->count)
-
-void* Lista_obterValor (No* l);
+void* No_obterValor (No* l);
 
 /*Cria uma nova lista*/
-Lista *Lista_cria();
+Lista *Lista_cria(void (*liberaFunction)(void*));
+
+/* Retorna o tamanho da @lista */
+#define Lista_count(L) (L->count)
+
+/*Caminha pela @lista, aplicando a @funcao*/
+void Lista_atravessar(Lista* lista, void (*funcao) (void*));
 
 /*Libera os elementos da @lista, destruindo-os*/
 void Lista_destruir(Lista *lista);
 
 /*Limpa a @lista liberando os valores dos nós*/
-void Lista_limpar(Lista *lista); 
+void Lista_limpar(Lista *lista);
 
 /*Limpa e libera a @lista*/
 void Lista_limpar_destruir(Lista *lista);
@@ -67,6 +74,7 @@ void *Lista_remover(Lista *lista, No *no);
 /*Clears the elements of a list and destroys their values*/
 void *Lista_shift(Lista *lista);
 
-/*Remove um nó da @lista com o valor de @nome*/
-void Lista_remover_nome(Lista *lista, int nome);
+void Lista_imprimir(Lista* l);
+
+void Lista_remover_nome(Lista* l, int nome);
 #endif
