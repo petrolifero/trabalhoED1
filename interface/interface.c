@@ -90,12 +90,12 @@ error:
 }
 
 Grafo *recuperarGrafo(FILE *arquivo){
-	int tamanho, rc, i = 0, vizinho, id;
+	int tamanho=1, rc, i = 0, vizinho, id;
 	//double nome;
-	rc = fread(&tamanho, sizeof(int), 1, arquivo);
-	check(rc == 1, "Falha na leitura do tamanho da lista.");
-	Grafo *grafo = initGrafo(tamanho);
-
+	Grafo *grafo = initGrafo(1);
+	
+	
+/*
 	for(i = 0; i < tamanho; i++){
 		grafo = addVertice(grafo);
 		id = numeroVertices(grafo) - 1;
@@ -105,7 +105,7 @@ Grafo *recuperarGrafo(FILE *arquivo){
 			rc = fread(&vizinho, sizeof(int), 1, arquivo);
 			grafo = addAresta(grafo, id, vizinho);
 		}while(rc == 1);
-	}
+	}*/
 	return initGrafo(1);
 error:
 	return NULL;
