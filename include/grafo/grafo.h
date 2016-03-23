@@ -41,7 +41,7 @@ typedef struct
 }MinHeap;
 
 typedef struct{
-	Verice *no;
+	Vertice *no;
 	int custoDist;
 }Distance;
 
@@ -55,7 +55,7 @@ void liberaGrafo (Grafo* grafo);
 void imprimeGrafo(Grafo* grafo);
 bool* buscaEmProfundidade (Grafo* g, void (*funcao)(void*));
 bool estaConexo (Grafo* grafo);
-Lista* djikstra (Grafo* grafo, int nomeOrigem, int nomeDestino);
+Lista* dijkstra (Grafo* grafo, int nomeOrigem, int nomeDestino);
 bool existeCaminho(Grafo* grafo, int nomeOrigem, int nomeDestino);
 void imprime(void* vertice);
 void imprimeGrafo (Grafo* g);

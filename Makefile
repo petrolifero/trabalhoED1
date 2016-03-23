@@ -15,11 +15,14 @@ TESTS=$(patsubst %.c,%,$(TEST_SRC))
 INTERFACE_SRC=$(wildcard interface/*.c)
 INTERFACE=$(patsubst %.c,%,$(INTERFACE_SRC))
 
+GERADOR_SRC=$(wildcard gerador/*.c)
+GERADOR=$(patsubst %.c,%,$(GERADOR_SRC))
+
 TARGET=build/libgrafos.a
 SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
 
 # The Target Build
-all: $(TARGET) $(SO_TARGET) testes interface
+all: $(TARGET) $(SO_TARGET) testes gerador interface
 
 dev: CFLAGS=-g -Wall -Isrc -Wall -Wextra $(OPTFLAGS)
 dev: all
@@ -45,9 +48,12 @@ testes: $(TESTS)
 interface: LDLIBS += $(TARGET)
 interface: $(INTERFACE)
 
+gerador: LDLIBS += $(TARGET)
+gerador: $(GERADOR)
+
 # The Cleaner
 clean:
-	rm -rf build $(OBJECTS) $(TESTS) $(INTERFACE)
+	rm -rf build $(OBJECTS) $(TESTS) $(INTERFACE) $(GERADOR)
 	rm -f testes/testes.log
 	find . -name "*.gc*" -exec rm {} \;
 	rm -rf `find . -name "*.dSYM" -print`
