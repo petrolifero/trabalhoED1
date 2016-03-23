@@ -1,8 +1,8 @@
 #PARA ENTREGAR:
 CURRENT=$(dir Makefile)
-#CFLAGS=-Ofast -Wall -Werror -Wextra -std=c11 -fomit-frame-pointer -march=native -I$(CURRENT)include
+CFLAGS=-Ofast -Wall -Wextra -std=c11 -fomit-frame-pointer -march=native -I$(CURRENT)include $(OPTFLAGS)
 #PARA DEBUG: 
-CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG  -I$(CURRENT)include $(OPTFLAGS)
+#CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG -std=c11 -I$(CURRENT)include $(OPTFLAGS)
 LIBS=-ldl $(OPTLIBS)
 PREFIX?=/usr/local
 

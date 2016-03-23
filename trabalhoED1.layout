@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
+	<File name="testes/grafo_testes.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="391" topLine="20" />
+		</Cursor>
+	</File>
 	<File name="src/grafo/grafo.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="2128" topLine="109" />
 		</Cursor>
 	</File>
-	<File name="include/util/minunit.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Makefile" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="577" topLine="7" />
+			<Cursor1 position="175" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="include/lista/lista.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -26,14 +31,9 @@
 			<Cursor1 position="1645" topLine="56" />
 		</Cursor>
 	</File>
-	<File name="testes/grafo_testes.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include/util/minunit.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="391" topLine="20" />
-		</Cursor>
-	</File>
-	<File name="Makefile" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="175" topLine="0" />
+			<Cursor1 position="577" topLine="7" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

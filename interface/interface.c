@@ -88,7 +88,9 @@ int main(int argc, char *argv[]){
 				check(scanf("%u %u", &inicio, &fim)== 2, "É necessário que sejam digitados dois índices.");
 				if(existeCaminho(g, inicio, fim)){
 					printf("\tExiste um caminho, e o caminho mínimo é:\n");
-					Lista_imprimir(dijkstra(g, inicio, fim));
+					Lista *caminho = dijkstra(g, inicio, fim);
+					check(caminho, "Djikstra não implementado.");
+					Lista_imprimir(caminho);
 				}
 				break;
 			case 's':
@@ -151,8 +153,6 @@ Grafo *recuperarGrafo(FILE *arquivo){
 			linhas++;
 	}
 	return grafo;
-
-	
 error:
 	return NULL;
 }
