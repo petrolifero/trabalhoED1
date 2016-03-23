@@ -31,7 +31,7 @@ typedef struct{
 	int custoDist;
 }Distance;
 
-void updateDistance(Grafo *grafo, Distance *dist,int newDistance, Vertices *cur2){
+void updateDistance(Grafo *grafo, Distance *dist,int newDistance, Vertice *cur2){
 	int tam = grafo->numeroVertices;
 	int i;	
 	for(i = 0; i < tam; i++){
@@ -42,7 +42,7 @@ void updateDistance(Grafo *grafo, Distance *dist,int newDistance, Vertices *cur2
 	}
 }
 
-int getDistance(Grafo *grafo,Distance *dist, Vertices *cur2){
+int getDistance(Grafo *grafo,Distance *dist, Vertice *cur2){
 	int tam = grafo->numeroVertices;
 	int i;	
 	for(i = 0; i < tam; i++){
@@ -52,7 +52,7 @@ int getDistance(Grafo *grafo,Distance *dist, Vertices *cur2){
 	}
 	return -1;
 }
-void updateParent(Parents *p, Vertices *v, Vertices *c){
+void updateParent(Parents *p, Vertice *v, Vertice *c){
 	int i;
 	while(p[i]->filho != NULL){
 		i++;
@@ -61,7 +61,7 @@ void updateParent(Parents *p, Vertices *v, Vertices *c){
 	p[i]->pai =c; 
 }
 
-bool existOnHeap(Minheap *heap, Vertices *cur2){
+bool existOnHeap(Minheap *heap, Vertice *cur2){
 	//Percorrer todos os vertices da heap, e ver se ainda existe
 	for(i = 0; i < tam; i++){
 		if(heap[i]->heap != NULL){
@@ -89,6 +89,76 @@ MinHeap *extractMinNode(MinHeap *heap){
 bool HeapEmpty(MinHeap *aux){
 	if(aux == NULL) return true;
 		return false;
+			Vertices *heap;
+				int custoHeap;
+}MinHeap;
+
+typedef struct{
+			Verice *no;
+				int custoDist;
+
+}Distance;
+
+
+
+void updateDistance(Grafo *grafo, Distance *dist,int newDistance, Vertice *cur2){
+			int tam = grafo->numeroVertices;
+				int i;	
+					for(i = 0; i < tam; i++){
+									if(dist[i]->no->dado->nome == cur2->dado->nome){
+														dist[i]->no->custo = newDistance;
+																	return;
+																			}
+										}
+}
+int getDistance(Grafo *grafo,Distance *dist, Vertice *cur2){
+			int tam = grafo->numeroVertices;
+				int i;	
+					for(i = 0; i < tam; i++){
+									if(dist[i]->no->dado->nome == cur2->dado->nome){
+														return dist[i]->no->custo; 
+																}
+										}
+						return -1;
+}
+void updateParent(Parents *p, Vertice *v, Vertice *c){
+			int i;
+				while(p[i]->filho != NULL){
+								i++;
+									}
+					p[i]->filho = v;
+						p[i]->pai =c; 
+}
+
+bool existOnHeap(Minheap *heap, Vertice *cur2){
+			//Percorrer todos os vertices da heap, e ver se ainda existe
+			for(i = 0; i < tam; i++){
+							if(heap[i]->heap != NULL){
+												if(heap[i]->heap->dado->nome == cur2->dado->nome){
+																		return true;
+																					}
+														}
+								}
+				return false;
+}
+
+MinHeap *extractMinNode(MinHeap *heap){
+			int min = heap[0]->custoHeap;
+				int temp,ind;
+					for(i = 1; i < tam; i++){
+									temp = heap[i]->custoHeap;
+											if(temp < min){
+																min = temp;
+																			ind = i;
+																					}
+												}
+						return heap[ind];
+}
+
+bool HeapEmpty(MinHeap *aux){
+			if(aux == NULL) return true;
+				return false;
+>>>>>>> 4241af3bce7aa18c1c7cb647a9622d95b3a49aca
 }
 
 
@@ -363,8 +433,8 @@ Grafo* removeAresta (Grafo* grafo, unsigned int i, unsigned int j)
 
 Grafo* removeVertice(Grafo* g, unsigned int nome)
 {
-		Lista_iterar(g->vertices, first, next, cur)
-		{
+	Lista_iterar(g->vertices, first, next, cur)
+	{
 				Vertice* tmp=(Vertice*)cur->info;
 				Lista_remover_nome(tmp->vizinhos, nome);
 		}

@@ -30,13 +30,13 @@ typedef struct
 
 typedef struct
 {
-	Vertices *pai;
-	Vertices *filho;
+	Vertice *pai;
+	Vertice *filho;
 }Parents;
 
 typedef struct
 {
-	Vertices *heap;
+	Vertice *heap;
 	int custoHeap;
 }MinHeap;
 
