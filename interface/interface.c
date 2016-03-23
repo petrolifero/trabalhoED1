@@ -120,14 +120,38 @@ Grafo *recuperarGrafo(FILE *arquivo){
 	fscanf(arquivo, "%MAXLINHA[^\n]%*c",linha);
 	int i=0;
 	int contador=0;
+	int linhas=1;
 	while(!feof(arquivo))
 	{
 			int vizinho;
-			addVertice(grafo);
 			i+=ignorarDoisEspacos(linha);
-			if(
-			scanf("%d ");
+			if(grafo->numeroVertices<linhas)
+			{
+					int j=grafo->numeroVertices;
+					for(;j<=linhas; j++)
+					{
+							addVertice(grafo);
+					}
+			}
+			while(linha[i])
+			{
+					int vizinho;
+					sscanf(linha+i, "%d %*f ", vizinho);
+					if(grafo->numeroVertices<vizinho)
+					{
+							int k=grafo->numeroVertices;
+							for(;k<=vizinho;k++)
+							{
+									addVertice(grafo);
+							}
+					}
+					addAresta(grafo,linhas,vizinho);
+					addAresta(grafo,vizinho,linhas);
+			}
+			fscanf(arquivo, "%MAXLINHA[^\n]%*c", linha);
+			linhas++;
 	}
+	return grafo;
 
 	
 error:
