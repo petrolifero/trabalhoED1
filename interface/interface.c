@@ -37,7 +37,9 @@ int main(int argc, char *argv[]){
 		printf("Digite o nome do arquivo contendo as informações do grafo: \n");
 		rc = fgets(buffer, MAXBUF, stdin);
 		check(rc, "Erro na inserção do nome.");
-		buffer[MAXBUF-1] = '\0';
+		int k;
+		for(k=0;buffer[k]!='\n'; k++);
+		buffer[k] = '\0';
 		arquivo = fopen(buffer, "r");
 		check(arquivo, "O arquivo não pode ser aberto.");
 	} else{
