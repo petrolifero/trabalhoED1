@@ -28,6 +28,23 @@ typedef struct
 	Lista* vertices;
 }Grafo;
 
+typedef struct
+{
+	Vertices *pai;
+	Vertices *filho;
+}Parents;
+
+typedef struct
+{
+	Vertices *heap;
+	int custoHeap;
+}MinHeap;
+
+typedef struct{
+	Verice *no;
+	int custoDist;
+}Distance;
+
 #define Grafo_numVertices(G) (G->numeroVertices)
 
 Grafo* initGrafo (unsigned int numeroVertices);

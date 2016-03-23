@@ -14,6 +14,84 @@ void liberaVertice (void* v)
 	free(vertice);
 }
 
+typedef struct
+{
+	Vertices *pai;
+	Vertices *filho;
+}Parents;
+
+typedef struct
+{
+	Vertices *heap;
+	int custoHeap;
+}MinHeap;
+
+typedef struct{
+	Verice *no;
+	int custoDist;
+}Distance;
+
+void updateDistance(Grafo *grafo, Distance *dist,int newDistance, Vertices *cur2){
+	int tam = grafo->numeroVertices;
+	int i;	
+	for(i = 0; i < tam; i++){
+		if(dist[i]->no->dado->nome == cur2->dado->nome){
+			dist[i]->no->custo = newDistance;
+			return;
+		}
+	}
+}
+
+int getDistance(Grafo *grafo,Distance *dist, Vertices *cur2){
+	int tam = grafo->numeroVertices;
+	int i;	
+	for(i = 0; i < tam; i++){
+		if(dist[i]->no->dado->nome == cur2->dado->nome){
+			return dist[i]->no->custo; 
+		}
+	}
+	return -1;
+}
+void updateParent(Parents *p, Vertices *v, Vertices *c){
+	int i;
+	while(p[i]->filho != NULL){
+		i++;
+	}
+	p[i]->filho = v;
+	p[i]->pai =c; 
+}
+
+bool existOnHeap(Minheap *heap, Vertices *cur2){
+	//Percorrer todos os vertices da heap, e ver se ainda existe
+	for(i = 0; i < tam; i++){
+		if(heap[i]->heap != NULL){
+			if(heap[i]->heap->dado->nome == cur2->dado->nome){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+MinHeap *extractMinNode(MinHeap *heap){
+	int min = heap[0]->custoHeap;
+	int temp,ind;
+	for(i = 1; i < tam; i++){
+		temp = heap[i]->custoHeap;
+		if(temp < min){
+			min = temp;
+			ind = i;
+		}
+	}
+	return heap[ind];
+}
+
+bool HeapEmpty(MinHeap *aux){
+	if(aux == NULL) return true;
+		return false;
+}
+
+
 //pegaVertice finish
 static Vertice* pegaVertice(Grafo* grafo, int nome)
 {
@@ -159,12 +237,50 @@ bool estaConexo (Grafo* grafo)
 	return true;
 }
 
-
 Lista* dijsktra (Grafo* grafo, int nomeOrigem, int nomeDestino)
 {
-		
+	if(grafo != NULL){
+		int tam = grafo->numeroVertices;
+		int i,j;
+		Lista *minPath = Lista_cria(free);								
+		MinHeap *minNodes = (MinHeap*) calloc(tam,sizeof(MinHeap));
+		Distance *dist = (Distance*) calloc(tam,sizeof(MinHeap));
+		Parents *parent = (Parents*) calloc(tam,sizeof(Distance));
+		Vertice current;
+		for(i = 0; i < tam; i++){
+			current = grafo->pegaVertice(grafo,i);
+			parent[i]->pai = NULL;
+			parent[i]->filho = NULL;
+			minNodes[i]->heap = current;
+			minNodes[i]->custo = 999:
+			dist[i]->no = current;
+		}
+		minNodes[nomeOrigem]->custo = 0;
+		parent[nomeOrigem]->filho = grafo->pegaVertice(grafo,nomeOrigem);
+		Lista_push(minPath,parent[nomeOrigem]->filho);
+		while(HeapEmpty(MinHeap)){
+			MinHeap *minNode = extractMinNode(minNodes);
+			current = minNode->heap;
+			//atualizarDistance
+			updateDistance(grafo,dist,minNode->custoHeap,current);
+			Lista_iterar(((Vertice*)(minNode->info))->vizinhos, first, next, cur2)
+			{
+				if(!existOnHeap(minNodes,cur2)){
+					continue;
+				}
+				int newDistance = getDistance(grafo,dist,current) + pegaCusto(grafo,current,cur2) //Como pegaria o custo ate o vertice cur2?
+				if(newDistance < minNodes.getWeight(cur2)){					
+					updateDistance(grafo,dist,newDistance,cur2); //ATTUALIZA A NOVA DISTANCIA NO NO CORRESPONDENTE DA LISTA DIST
+					updateParent(parent,cur2,current); //ATUALIZA O PARENTESCO ENTRE O NOATUAL COM O ANTERIOR NA LISTA PARENT
+					Lista_push(minPath,cur2);
+				}
+			}
+		} 
+		return minPath;
+	}	
 	return NULL;
 }
+
 
 //existeCaminho finish
 bool existeCaminho(Grafo* grafo, int nomeOrigem, int nomeDestino)
@@ -204,61 +320,51 @@ int pegaCusto (Grafo* grafo, unsigned int i, unsigned int j)
 
 Grafo* removeAresta (Grafo* grafo, unsigned int i, unsigned int j)
 {
-		int contador=0;
-		Lista_iterar(grafo->vertices, first, next, cur)
+	int contador=0;
+	Lista_iterar(grafo->vertices, first, next, cur)
+	{
+		Vertice* tmp=(Vertice*)cur->info;
+		if(tmp->dado.nome==i)
 		{
-				Vertice* tmp=(Vertice*)cur->info;
-				if(tmp->dado.nome==i)
+			Lista_iterar(tmp->vizinhos, first, next, cur2)
+			{
+				Vizinhos* tmp2=(Vizinhos*)cur2->info;
+				if(tmp2->indice==j)
 				{
-						Lista_iterar(tmp->vizinhos, first, next, cur2)
-						{
-								Vizinhos* tmp2=(Vizinhos*)cur2->info;
-								if(tmp2->indice==j)
-								{
-										Lista_remover_nome(tmp->vizinhos, j);
-										contador++;
-										if(contador==2)
-												return grafo;
-										break;
-								}
-
-						}
+					Lista_remover_nome(tmp->vizinhos, j);
+					contador++;
+					if(contador==2)
+						return grafo;
+					break;
 				}
-				else if (tmp->dado.nome==j)
-				{
-						Lista_iterar(tmp->vizinhos, first, next, cur2)
-						{
-								Vizinhos* tmp2=(Vizinhos*)cur2->info;
-								if(tmp2->indice==i)
-								{
-										Lista_remover_nome(tmp->vizinhos, i);
-										contador++;
-										if(contador==2)
-												return grafo;
-										break;
-								}
-
-						}
-				}
-
-
+			}
 		}
+			else if (tmp->dado.nome==j)
+			{
+					Lista_iterar(tmp->vizinhos, first, next, cur2)
+					{
+							Vizinhos* tmp2=(Vizinhos*)cur2->info;
+							if(tmp2->indice==i)
+							{
+									Lista_remover_nome(tmp->vizinhos, i);
+									contador++;
+									if(contador==2)
+											return grafo;
+									break;
+							}
+
+					}
+			}
+
+
+	}
 		return NULL;
 }
 
 Grafo* removeVertice(Grafo* g, unsigned int nome)
 {
-	Lista_iterar(g->vertices, first, next, cur)
-	{
-		Vertice* tmp=(Vertice*)cur->info;
-		if(0)
+		Lista_iterar(g->vertices, first, next, cur)
 		{
-<<<<<<< HEAD
-
-		}
-	}
-return initGrafo(1);
-=======
 				Vertice* tmp=(Vertice*)cur->info;
 				Lista_remover_nome(tmp->vizinhos, nome);
 		}
@@ -274,5 +380,4 @@ return initGrafo(1);
 			}
 		}
 		return 	NULL;
->>>>>>> deddf186226c3fd2cae65a2a48e9d649e29aa3fe
 }

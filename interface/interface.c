@@ -14,7 +14,7 @@ int ignorarDoisEspacos(char* s)
 		{
 			break;
 		}
-		if(linha[i]==' ')
+		if(s[i]==' ')
 		{
 			contador++;
 		}
@@ -118,7 +118,6 @@ Grafo *recuperarGrafo(FILE *arquivo){
 	Grafo *grafo = initGrafo(1);
 	char linha[MAXLINHA];
 	fscanf(arquivo, "%MAXLINHA[^\n]%*c",linha);
-	int i=0;
 	int contador=0;
 	while(!feof(arquivo))
 	{
