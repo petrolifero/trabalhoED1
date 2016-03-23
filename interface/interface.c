@@ -1,6 +1,7 @@
 #include <grafo/grafo.h>
-#include <dbg.h>
+#include <util/dbg.h>
 #include <stdio.h>
+#include <string.h>
 
 #define MAXBUF 1024
 
@@ -38,8 +39,12 @@ int main(int argc, char *argv[]){
 		rc = fgets(buffer, MAXBUF, stdin);
 		check(rc, "Erro na inserção do nome.");
 		buffer[MAXBUF-1] = '\0';
-		arquivo = fopen(buffer, "r");
-		check(arquivo, "O arquivo não pode ser aberto.");
+		if(!strcmp(buffer, "")){
+			arquivo = NULL;
+		}else{
+			arquivo = fopen(buffer, "r");
+			check(!arquivo, "O arquivo não pode ser aberto.");
+		}
 	} else{
 		char *buffer = argv[1];
 		arquivo = fopen(buffer, "r");
@@ -115,6 +120,9 @@ error:
 #define MAXLINHA (16*1024)
 
 Grafo *recuperarGrafo(FILE *arquivo){
+	if(!arquivo){
+		return initGrafo(1);
+	}
 	int tamanho=1, rc, i = 0, vizinho, id;
 	//double nome;
 	Grafo *grafo = initGrafo(1);
@@ -137,7 +145,7 @@ Grafo *recuperarGrafo(FILE *arquivo){
 			while(linha[i])
 			{
 					int vizinho;
-					sscanf(linha+i, "%d %*f ", vizinho);
+					scanf(linha+i, "%d %*f ", vizinho);
 					if(grafo->numeroVertices<vizinho)
 					{
 							int k=grafo->numeroVertices;
